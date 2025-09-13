@@ -36,6 +36,9 @@ pub struct ArgumentNode {
 #[derive(Clone)]
 pub enum ArgumentKind {
     SummaryHide,
+    CopyHead(String),
+    CopyTail(String),
+    Paste(String),
 }
 
 #[derive(Clone)]

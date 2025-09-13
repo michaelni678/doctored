@@ -1,6 +1,6 @@
 use quote::quote;
 use syn::{
-    AttrStyle, Attribute, Error, Expr, ExprLit, Lit, Meta, MetaNameValue, Result, Token,
+    AttrStyle, Attribute, Error, Expr, ExprLit, Lit, LitStr, Meta, MetaNameValue, Result, Token,
     parse_quote, punctuated::Punctuated, spanned::Spanned,
 };
 
@@ -57,6 +57,58 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
                             } else {
                                 return Err(Error::new(meta.span(), "invalid attribute argument"));
                             }
+                        }
+                    } else if meta.path().is_ident("copy") {
+                        let metas = meta
+                            .require_list()?
+                            .parse_args_with(Punctuated::<Meta, Token![,]>::parse_terminated)?;
+
+                        for meta in metas {
+                            if meta.path().is_ident("head") {
+                                let tags = meta.require_list()?.parse_args_with(
+                                    Punctuated::<LitStr, Token![,]>::parse_terminated,
+                                )?;
+
+                                for tag in tags {
+                                    nodes.push(Node {
+                                        kind: NodeKind::Argument(ArgumentNode {
+                                            kind: ArgumentKind::CopyHead(tag.value()),
+                                            span: tag.span(),
+                                        }),
+                                        style,
+                                    });
+                                }
+                            } else if meta.path().is_ident("tail") {
+                                let tags = meta.require_list()?.parse_args_with(
+                                    Punctuated::<LitStr, Token![,]>::parse_terminated,
+                                )?;
+
+                                for tag in tags {
+                                    nodes.push(Node {
+                                        kind: NodeKind::Argument(ArgumentNode {
+                                            kind: ArgumentKind::CopyTail(tag.value()),
+                                            span: tag.span(),
+                                        }),
+                                        style,
+                                    });
+                                }
+                            } else {
+                                return Err(Error::new(meta.span(), "invalid attribute"));
+                            }
+                        }
+                    } else if meta.path().is_ident("paste") {
+                        let tags = meta
+                            .require_list()?
+                            .parse_args_with(Punctuated::<LitStr, Token![,]>::parse_terminated)?;
+
+                        for tag in tags {
+                            nodes.push(Node {
+                                kind: NodeKind::Argument(ArgumentNode {
+                                    kind: ArgumentKind::Paste(tag.value()),
+                                    span: tag.span(),
+                                }),
+                                style,
+                            });
                         }
                     } else {
                         unrelated.push(meta);

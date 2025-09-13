@@ -1,8 +1,10 @@
+use std::collections::HashMap;
+
 use proc_macro::TokenStream;
 use syn::{Error, parse::Nothing, parse_macro_input};
 
 use crate::{
-    resolvers::summary::hide::resolve_summary_hide,
+    resolvers::{copy::resolve_copy, paste::resolve_paste, summary::hide::resolve_summary_hide},
     utilities::{
         attributes::visit::visit_attributes,
         nodes::convert::{convert_attributes_into_nodes, convert_nodes_into_attributes},
@@ -18,6 +20,10 @@ pub fn doctored(args: TokenStream, input: TokenStream) -> TokenStream {
 
     visit_attributes(input.into(), &mut |attrs| {
         let mut nodes = convert_attributes_into_nodes(attrs)?;
+
+        let mut clipboard = HashMap::new();
+        resolve_copy(&mut nodes, &mut clipboard)?;
+        resolve_paste(&mut nodes, &clipboard)?;
 
         resolve_summary_hide(&mut nodes)?;
 
