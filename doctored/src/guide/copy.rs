@@ -2,9 +2,9 @@
 
 //! Copies documentation.
 //!
-//! The `copy` attribute is used to copy documentation between a `head` and
-//! `tail`. Every `head` must have a `tail` with the same tag. The
-//! [`paste`](super::paste) attribute can be used to paste the copied
+//! The `copy` attribute argument is used to copy documentation between a `head`
+//! and `tail`. Every `head` must have a `tail` with the same tag. The
+//! [`paste`](super::paste) argument can be used to paste the copied
 //! documentation.
 //!
 //! Multiple parts of the code block below are copied and pasted.
