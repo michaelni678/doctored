@@ -1,0 +1,22 @@
+[package]
+name = "doctored"
+version = "0.1.0"
+edition = "2024"
+authors = ["Michael Ni <michael.ni678@gmail.com>"]
+repository = "https://github.com/michaelni678/doctored"
+homepage = "https://github.com/michaelni678/doctored"
+readme = "README.md"
+license = "Apache-2.0"
+keywords = ["documentation"]
+description = "Documentation utilities"
+documentation = "https://docs.rs/doctored"
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[features]
+guide = []
+
+[dependencies]
+doctored-macros = { path = "../doctored-macros", version = "0.1.0" }
