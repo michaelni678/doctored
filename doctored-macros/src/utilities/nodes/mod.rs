@@ -1,5 +1,5 @@
 use proc_macro2::Span;
-use syn::{AttrStyle, Attribute};
+use syn::{AttrStyle, Attribute, spanned::Spanned};
 
 pub mod convert;
 
@@ -7,6 +7,16 @@ pub mod convert;
 pub struct Node {
     pub kind: NodeKind,
     pub style: AttrStyle,
+}
+
+impl Node {
+    pub fn span(&self) -> Span {
+        match self.kind {
+            NodeKind::Argument(ArgumentNode { span, .. })
+            | NodeKind::Documentation(DocumentationNode { span, .. }) => span,
+            NodeKind::Unrelated(ref attr) => attr.span(),
+        }
+    }
 }
 
 #[derive(Clone)]
