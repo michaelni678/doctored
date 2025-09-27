@@ -2,7 +2,7 @@ use proc_macro::TokenStream;
 use syn::{Error, parse::Nothing, parse_macro_input};
 
 use crate::{
-    resolvers::summary::hide::resolve_summary_hide,
+    resolvers::summary::{hide::resolve_summary_hide, mock::resolve_summary_mock},
     utilities::{
         attributes::visit::visit_attributes,
         nodes::convert::{convert_attributes_into_nodes, convert_nodes_into_attributes},
@@ -20,6 +20,7 @@ pub fn doctored(args: TokenStream, input: TokenStream) -> TokenStream {
         let mut nodes = convert_attributes_into_nodes(attrs)?;
 
         resolve_summary_hide(&mut nodes)?;
+        resolve_summary_mock(&mut nodes)?;
 
         convert_nodes_into_attributes(nodes)
     })

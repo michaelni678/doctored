@@ -48,6 +48,23 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
                                 }),
                                 style,
                             });
+                        } else if meta.path().is_ident("mock") {
+                            let value = &meta.require_name_value()?.value;
+                            if let Expr::Lit(ExprLit { lit, .. }) = value
+                                && let Lit::Str(s) = lit
+                            {
+                                let string = s.value();
+
+                                nodes.push(Node {
+                                    kind: NodeKind::Argument(ArgumentNode {
+                                        kind: ArgumentKind::SummaryMock(string),
+                                        span: meta.span(),
+                                    }),
+                                    style,
+                                })
+                            } else {
+                                return Err(Error::new(value.span(), "expected a string literal"));
+                            }
                         } else {
                             return Err(Error::new(meta.span(), "invalid attribute argument"));
                         }
