@@ -37,6 +37,7 @@ pub struct ArgumentNode {
 pub enum ArgumentKind {
     SummaryHide,
     SummaryMock(String),
+    Highlight,
 }
 
 #[derive(Clone)]

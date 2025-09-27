@@ -69,6 +69,17 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
                             return Err(Error::new(meta.span(), "invalid attribute argument"));
                         }
                     }
+                } else if meta.path().is_ident("highlight") {
+                    // Validate the meta is a path.
+                    meta.require_path_only()?;
+
+                    nodes.push(Node {
+                        kind: NodeKind::Argument(ArgumentNode {
+                            kind: ArgumentKind::Highlight,
+                            span: meta.span(),
+                        }),
+                        style,
+                    });
                 } else {
                     unrelated.push(meta);
                 }
