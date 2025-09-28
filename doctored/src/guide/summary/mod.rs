@@ -1,3 +1,4 @@
-/// Manipulate the summary in the module overview.
+//! Manipulate the summary in the module overview.
+
 pub mod hide;
 pub mod mock;
