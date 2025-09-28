@@ -1,3 +1,4 @@
+#![cfg_attr(docsrs, feature(doc_auto_cfg))]
 #![cfg_attr(any(doc, docsrs), feature(custom_inner_attributes, proc_macro_hygiene))]
 
 extern crate self as doctored;
