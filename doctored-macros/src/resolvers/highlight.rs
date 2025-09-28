@@ -3,11 +3,47 @@ use syn::{Error, Result};
 use crate::utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
 
 pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
+    let mut index = 0;
+
+    // Loop through the nodes and find in-text highlights and turn them into nodes.
+    while index < nodes.len() {
+        let node = &mut nodes[index];
+
+        let style = node.style;
+        let span = node.span();
+
+        if let NodeKind::Documentation(DocumentationNode { string, .. }) = &mut node.kind
+            && let Some((left, right)) = string.split_once("```highlight")
+            && left.chars().all(char::is_whitespace)
+            && !right.contains('`')
+        {
+            // This erases "highlight".
+            *string = format!("{left}```{right}");
+
+            nodes.insert(
+                index,
+                Node {
+                    kind: NodeKind::Argument(ArgumentNode {
+                        kind: ArgumentKind::Highlight,
+                        span,
+                    }),
+                    style,
+                },
+            );
+
+            // Increment past the inserted highlight node and the documentation node that
+            // was just processed.
+            index += 2;
+        } else {
+            index += 1;
+        }
+    }
+
     let mut delete_indices = Vec::new();
     let mut index = 0;
 
     while index < nodes.len() {
-        let node = &mut nodes[index];
+        let node = &nodes[index];
 
         let style = node.style;
         let span = node.span();
@@ -100,6 +136,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
         index += 1;
     }
 
+    // Delete the highlight nodes that were just resolved.
     delete_indices.into_iter().rev().for_each(|index| {
         nodes.remove(index);
     });

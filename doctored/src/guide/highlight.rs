@@ -15,8 +15,8 @@
 //! Like the `ignore` attribute, Doctored's `highlight` attribute also
 //! syntax-highlights the code block and doesn't compile it. However, the
 //! tooltip indicating the code block hasn't been tested is not shown.
-#![doc(highlight)]
-//! ```
+//!
+//! ```highlight
 //! let bytes = include_bytes!("spanish.in");
 //! assert_eq!(bytes, b"adi\xc3\xb3s\n");
 //! ```
@@ -29,8 +29,8 @@
 //! demonstrates a hypothetical `fruits` procedural macro. The ellipsis (`...`)
 //! in the attribute indicates optional arguments, and the ellipsis in the
 //! struct fields indicates that more fields may be present.
-#![doc(highlight)]
-//! ```
+//!
+//! ```highlight
 //! #[fruits(...)]
 //! pub struct Fruits {
 //!     apples: usize,
