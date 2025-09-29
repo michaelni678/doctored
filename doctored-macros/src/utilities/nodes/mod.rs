@@ -17,6 +17,15 @@ impl Node {
             NodeKind::Unrelated(ref attr) => attr.span(),
         }
     }
+
+    /// Resolves the node.
+    pub fn resolve(&mut self) {
+        let NodeKind::Argument(ArgumentNode { resolved, .. }) = &mut self.kind else {
+            panic!("expected an argument node");
+        };
+
+        *resolved = true;
+    }
 }
 
 #[derive(Clone)]
@@ -31,6 +40,7 @@ pub enum NodeKind {
 pub struct ArgumentNode {
     pub kind: ArgumentKind,
     pub span: Span,
+    pub resolved: bool,
 }
 
 #[derive(Clone)]

@@ -45,6 +45,7 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
                                 kind: NodeKind::Argument(ArgumentNode {
                                     kind: ArgumentKind::SummaryHide,
                                     span: meta.span(),
+                                    resolved: false,
                                 }),
                                 style,
                             });
@@ -59,6 +60,7 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
                                     kind: NodeKind::Argument(ArgumentNode {
                                         kind: ArgumentKind::SummaryMock(string),
                                         span: meta.span(),
+                                        resolved: false,
                                     }),
                                     style,
                                 })
@@ -77,6 +79,7 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
                         kind: NodeKind::Argument(ArgumentNode {
                             kind: ArgumentKind::Highlight,
                             span: meta.span(),
+                            resolved: false,
                         }),
                         style,
                     });
@@ -117,8 +120,10 @@ pub fn convert_nodes_into_attributes(nodes: Vec<Node>) -> Result<Vec<Attribute>>
 
     for node in nodes {
         match node.kind {
-            NodeKind::Argument(ArgumentNode { span, .. }) => {
-                return Err(Error::new(span, "couldn't resolve attribute argument"));
+            NodeKind::Argument(ArgumentNode { resolved, span, .. }) => {
+                if !resolved {
+                    return Err(Error::new(span, "couldn't resolve attribute argument"));
+                }
             }
             NodeKind::Documentation(DocumentationNode { string, .. }) => {
                 attrs.push(match node.style {

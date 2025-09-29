@@ -4,7 +4,7 @@ use crate::utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Nod
 
 pub fn resolve_summary_hide(nodes: &mut Vec<Node>) -> Result<()> {
     // Extract nodes to resolve.
-    let mut unresolved = nodes.extract_if(.., |node| {
+    let mut unresolved = nodes.iter_mut().filter(|node| {
         matches!(
             node.kind,
             NodeKind::Argument(ArgumentNode {
@@ -28,6 +28,8 @@ pub fn resolve_summary_hide(nodes: &mut Vec<Node>) -> Result<()> {
 
     let span = node.span();
     let style = node.style;
+
+    node.resolve();
 
     let node = Node {
         kind: NodeKind::Documentation(DocumentationNode {

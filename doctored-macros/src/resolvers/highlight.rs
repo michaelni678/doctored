@@ -26,6 +26,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
                     kind: NodeKind::Argument(ArgumentNode {
                         kind: ArgumentKind::Highlight,
                         span,
+                        resolved: false,
                     }),
                     style,
                 },
@@ -39,7 +40,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
         }
     }
 
-    let mut delete_indices = Vec::new();
+    let mut resolved_indices = Vec::new();
     let mut index = 0;
 
     while index < nodes.len() {
@@ -57,7 +58,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
             continue;
         };
 
-        delete_indices.push(index);
+        resolved_indices.push(index);
 
         index += 1;
 
@@ -136,10 +137,9 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
         index += 1;
     }
 
-    // Delete the highlight nodes that were just resolved.
-    delete_indices.into_iter().rev().for_each(|index| {
-        nodes.remove(index);
-    });
+    for index in resolved_indices {
+        nodes[index].resolve();
+    }
 
     Ok(())
 }
