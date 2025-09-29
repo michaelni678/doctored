@@ -9,9 +9,6 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
     while index < nodes.len() {
         let node = &mut nodes[index];
 
-        let style = node.style;
-        let span = node.span();
-
         if let NodeKind::Documentation(DocumentationNode { string, .. }) = &mut node.kind
             && let Some((left, right)) = string.split_once("```highlight")
             && left.chars().all(char::is_whitespace)
@@ -19,6 +16,9 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
         {
             // This erases "highlight".
             *string = format!("{left}```{right}");
+
+            let style = node.style;
+            let span = node.span();
 
             nodes.insert(
                 index,
@@ -46,9 +46,6 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
     while index < nodes.len() {
         let node = &nodes[index];
 
-        let style = node.style;
-        let span = node.span();
-
         let NodeKind::Argument(ArgumentNode {
             kind: ArgumentKind::Highlight,
             ..
@@ -57,6 +54,9 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
             index += 1;
             continue;
         };
+
+        let style = node.style;
+        let span = node.span();
 
         let resolved_index = index;
         index += 1;
