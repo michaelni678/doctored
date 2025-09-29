@@ -58,8 +58,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
             continue;
         };
 
-        resolved_indices.push(index);
-
+        let resolved_index = index;
         index += 1;
 
         // Find the start of the code block.
@@ -134,6 +133,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
             },
         );
 
+        resolved_indices.push(resolved_index);
         index += 1;
     }
 
