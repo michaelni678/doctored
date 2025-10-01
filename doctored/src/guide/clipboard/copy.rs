@@ -7,7 +7,7 @@
 //!
 //! ```
 #![doc(clipboard(copy(tag = "function")))]
-//! pub fn middle(a: usize, b: usize) -> i32 {
+//! pub fn middle(a: usize, b: usize) -> usize {
 //!     assert!(a <= b);
 #![doc(clipboard(copy(tag = "equation", lstrip)))]
 //!     a + (b - a) / 2
@@ -17,7 +17,7 @@
 //! ```
 //! ```
 #![doc(clipboard(paste(tag = "function", lpush = "#")))]
-//! assert_eq!(middle(6, 8), 7));
+//! assert_eq!(middle(6, 8), 7);
 //! ```
 //! 
 //! To avoid integer overflow, the middle is calculated with the equation `
