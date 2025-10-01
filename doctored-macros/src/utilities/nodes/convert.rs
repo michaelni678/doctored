@@ -1,10 +1,13 @@
 use quote::quote;
 use syn::{
     AttrStyle, Attribute, Error, Expr, ExprLit, Lit, Meta, MetaNameValue, Result, Token,
-    parse_quote, punctuated::Punctuated, spanned::Spanned,
+    parse_quote, punctuated::Punctuated,
 };
 
-use crate::utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
+use crate::{
+    parsers::{highlight::parse_highlight, summary::parse_summary},
+    utilities::nodes::{ArgumentNode, DocumentationNode, Node, NodeKind},
+};
 
 /// Converts attributes into nodes.
 pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>> {
@@ -32,57 +35,9 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
 
             for meta in metas {
                 if meta.path().is_ident("summary") {
-                    let metas = meta
-                        .require_list()?
-                        .parse_args_with(Punctuated::<Meta, Token![,]>::parse_terminated)?;
-
-                    for meta in metas {
-                        if meta.path().is_ident("hide") {
-                            // Validate the meta is a path.
-                            meta.require_path_only()?;
-
-                            nodes.push(Node {
-                                kind: NodeKind::Argument(ArgumentNode {
-                                    kind: ArgumentKind::SummaryHide,
-                                    span: meta.span(),
-                                    resolved: false,
-                                }),
-                                style,
-                            });
-                        } else if meta.path().is_ident("mock") {
-                            let value = &meta.require_name_value()?.value;
-                            if let Expr::Lit(ExprLit { lit, .. }) = value
-                                && let Lit::Str(s) = lit
-                            {
-                                let string = s.value();
-
-                                nodes.push(Node {
-                                    kind: NodeKind::Argument(ArgumentNode {
-                                        kind: ArgumentKind::SummaryMock(string),
-                                        span: meta.span(),
-                                        resolved: false,
-                                    }),
-                                    style,
-                                })
-                            } else {
-                                return Err(Error::new(value.span(), "expected a string literal"));
-                            }
-                        } else {
-                            return Err(Error::new(meta.span(), "invalid attribute argument"));
-                        }
-                    }
+                    parse_summary(&mut nodes, style, meta)?;
                 } else if meta.path().is_ident("highlight") {
-                    // Validate the meta is a path.
-                    meta.require_path_only()?;
-
-                    nodes.push(Node {
-                        kind: NodeKind::Argument(ArgumentNode {
-                            kind: ArgumentKind::Highlight,
-                            span: meta.span(),
-                            resolved: false,
-                        }),
-                        style,
-                    });
+                    parse_highlight(&mut nodes, style, meta)?;
                 } else {
                     unrelated.push(meta);
                 }
