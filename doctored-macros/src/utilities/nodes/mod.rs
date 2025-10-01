@@ -1,6 +1,8 @@
 use proc_macro2::Span;
 use syn::{AttrStyle, Attribute, spanned::Spanned};
 
+use crate::resolvers::clipboard::ClipboardModifier;
+
 pub mod convert;
 
 #[derive(Clone)]
@@ -48,6 +50,14 @@ pub enum ArgumentKind {
     SummaryHide,
     SummaryMock(String),
     Highlight,
+    ClipboardCopy {
+        tag: String,
+        modifiers: Vec<ClipboardModifier>,
+    },
+    ClipboardPaste {
+        tag: String,
+        modifiers: Vec<ClipboardModifier>,
+    },
 }
 
 #[derive(Clone)]
