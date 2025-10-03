@@ -50,9 +50,12 @@ pub enum ArgumentKind {
     SummaryHide,
     SummaryMock(String),
     Highlight,
-    ClipboardCopy {
+    ClipboardCopyHead {
         tag: String,
         modifiers: Vec<ClipboardModifier>,
+    },
+    ClipboardCopyTail {
+        tag: String,
     },
     ClipboardPaste {
         tag: String,

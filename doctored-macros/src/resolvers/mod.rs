@@ -18,7 +18,7 @@ pub mod summary;
 pub fn resolve(nodes: &mut Vec<Node>) -> Result<()> {
     let mut clipboard = HashMap::new();
 
-    resolve_clipboard_copy(nodes, &mut clipboard);
+    resolve_clipboard_copy(nodes, &mut clipboard)?;
     resolve_clipboard_paste(nodes, clipboard)?;
 
     resolve_highlight(nodes)?;

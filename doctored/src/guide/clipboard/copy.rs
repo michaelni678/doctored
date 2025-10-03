@@ -6,14 +6,14 @@
 //! center of the two given integers.
 //!
 //! ```
-#![doc(clipboard(copy(tag = "function")))]
+#![doc(clipboard(copy(head = "function")))]
 //! pub fn middle(a: usize, b: usize) -> usize {
 //!     assert!(a <= b);
-#![doc(clipboard(copy(tag = "equation", lstrip)))]
+#![doc(clipboard(copy(head = "equation", lstrip)))]
 //!     a + (b - a) / 2
-#![doc(clipboard(copy(tag = "equation")))]
+#![doc(clipboard(copy(tail = "equation")))]
 //! }
-#![doc(clipboard(copy(tag = "function")))]
+#![doc(clipboard(copy(tail = "function")))]
 //! ```
 //! ```
 #![doc(clipboard(paste(tag = "function", lpush = "#")))]
