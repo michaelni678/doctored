@@ -60,7 +60,7 @@ pub fn parse_clipboard_copy(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta)
                 }
             }
 
-            modifiers.push(ClipboardModifier::StripStart(prefix));
+            modifiers.push(ClipboardModifier::LeftStrip(prefix));
         } else if meta.path().is_ident("lpush") {
             let value = &meta.require_name_value()?.value;
 
@@ -71,7 +71,7 @@ pub fn parse_clipboard_copy(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta)
                 return Err(Error::new(value.span(), "expected a string literal"));
             };
 
-            modifiers.push(ClipboardModifier::PushStart(s.value()));
+            modifiers.push(ClipboardModifier::LeftPush(s.value()));
         } else {
             return Err(Error::new(meta.span(), "invalid attribute argument"));
         }
