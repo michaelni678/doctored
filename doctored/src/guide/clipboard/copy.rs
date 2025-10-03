@@ -18,10 +18,9 @@
 //! 
 //! This is a doctest for the `middle` function.
 //! ```
-#![doc(clipboard(paste(tag = "function", lpush = "#")))]
+#![doc(clipboard(paste(tag = "function", push(left = "#"))))]
 //! assert_eq!(middle(6, 8), 7);
 //! ```
 //! 
-//! To avoid integer overflow, the middle is calculated with the equation `
-#![doc(clipboard(paste(tag = "equation")))]
-//!`.
+//! To avoid integer overflow, the middle is calculated with the equation
+#![doc(clipboard(paste(tag = "equation", push(left = "`", right = "`."))))]
