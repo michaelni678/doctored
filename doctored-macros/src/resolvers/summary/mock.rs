@@ -7,7 +7,7 @@ pub fn resolve_summary_mock(nodes: &mut Vec<Node>) -> Result<()> {
 
     while let Some(node) = nodes.get(index) {
         let NodeKind::Argument(ArgumentNode {
-            kind: ArgumentKind::SummaryMock(string),
+            kind: ArgumentKind::SummaryMock { summary },
             ..
         }) = &node.kind
         else {
@@ -23,7 +23,7 @@ pub fn resolve_summary_mock(nodes: &mut Vec<Node>) -> Result<()> {
             [
                 Node {
                     kind: NodeKind::Documentation(DocumentationNode {
-                        string: format!("<div id=\"summary_mock\">{string}</div>"),
+                        string: format!("<div id=\"summary_mock\">{summary}</div>"),
                         span,
                     }),
                     style,

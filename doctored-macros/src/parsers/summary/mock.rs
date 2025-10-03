@@ -8,11 +8,11 @@ pub fn parse_summary_mock(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta) -
     if let Expr::Lit(ExprLit { lit, .. }) = value
         && let Lit::Str(s) = lit
     {
-        let string = s.value();
+        let summary = s.value();
 
         nodes.push(Node {
             kind: NodeKind::Argument(ArgumentNode {
-                kind: ArgumentKind::SummaryMock(string),
+                kind: ArgumentKind::SummaryMock { summary },
                 span: meta.span(),
                 resolved: false,
             }),

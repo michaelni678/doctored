@@ -48,7 +48,9 @@ pub struct ArgumentNode {
 #[derive(Clone)]
 pub enum ArgumentKind {
     SummaryHide,
-    SummaryMock(String),
+    SummaryMock {
+        summary: String,
+    },
     Highlight,
     ClipboardCopyHead {
         tag: String,
