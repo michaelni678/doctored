@@ -15,6 +15,8 @@
 //! }
 #![doc(clipboard(copy(tail = "function")))]
 //! ```
+//! 
+//! This is a doctest for the `middle` function.
 //! ```
 #![doc(clipboard(paste(tag = "function", lpush = "#")))]
 //! assert_eq!(middle(6, 8), 7);
