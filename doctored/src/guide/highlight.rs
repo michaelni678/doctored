@@ -1,4 +1,4 @@
-#![cfg_attr(docsrs, doctored::doctored)]
+#![cfg_attr(any(feature = "documentation", docsrs), doctored::doctored)]
 
 //! Apply Rust syntax highlighting to a code block.
 //!

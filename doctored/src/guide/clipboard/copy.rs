@@ -1,4 +1,4 @@
-#![cfg_attr(docsrs, doctored::doctored)]
+#![cfg_attr(any(feature = "documentation", docsrs), doctored::doctored)]
 
 //! Copies documentation.
 //!
