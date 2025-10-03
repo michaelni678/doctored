@@ -3,6 +3,7 @@ pub mod paste;
 
 #[derive(Clone)]
 pub enum ClipboardModifier {
+    Strip,
     StripStart(Option<String>),
     PushStart(String),
 }
@@ -10,6 +11,7 @@ pub enum ClipboardModifier {
 pub fn apply_clipboard_modifiers(modifiers: &[ClipboardModifier], string: &mut String) {
     for modifier in modifiers {
         match modifier {
+            ClipboardModifier::Strip => *string = string.trim().to_owned(),
             ClipboardModifier::StripStart(strip) => match strip {
                 Some(prefix) => {
                     if let Some(stripped) = string.strip_prefix(prefix) {
@@ -20,9 +22,7 @@ pub fn apply_clipboard_modifiers(modifiers: &[ClipboardModifier], string: &mut S
                     *string = string.trim_start().to_owned();
                 }
             },
-            ClipboardModifier::PushStart(push) => {
-                string.insert_str(0, push);
-            }
+            ClipboardModifier::PushStart(push) => string.insert_str(0, push),
         }
     }
 }

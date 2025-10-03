@@ -9,7 +9,7 @@
 #![doc(clipboard(copy(head = "function")))]
 //! pub fn middle(a: usize, b: usize) -> usize {
 //!     assert!(a <= b);
-#![doc(clipboard(copy(head = "equation", lstrip)))]
+#![doc(clipboard(copy(head = "equation", strip)))]
 //!     a + (b - a) / 2
 #![doc(clipboard(copy(tail = "equation")))]
 //! }

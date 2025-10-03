@@ -36,8 +36,13 @@ pub fn parse_clipboard_copy(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta)
             }
 
             head = meta.path().is_ident("head");
+        } else if meta.path().is_ident("strip") {
+            meta.require_path_only()?;
+
+            modifiers.push(ClipboardModifier::Strip);
         } else if meta.path().is_ident("lstrip") {
             let mut prefix = None;
+
             match meta {
                 Meta::Path(_) => {}
                 Meta::NameValue(MetaNameValue { value, .. }) => {
