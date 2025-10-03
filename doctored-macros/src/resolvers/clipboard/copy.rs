@@ -78,7 +78,7 @@ pub fn resolve_clipboard_copy(
     }
 
     // Validate there are no unresolved heads.
-    for (_, head) in heads {
+    if let Some(head) = heads.values().next() {
         return Err(Error::new(head.span, "no tail found"));
     }
 
