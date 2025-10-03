@@ -21,7 +21,7 @@ pub fn apply_clipboard_modifiers(modifiers: &[ClipboardModifier], string: &mut S
                 }
             },
             ClipboardModifier::PushStart(push) => {
-                string.insert_str(0, &push);
+                string.insert_str(0, push);
             }
         }
     }

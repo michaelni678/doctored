@@ -5,7 +5,7 @@ use crate::{
     utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind},
 };
 
-pub fn resolve_clipboard_copy(nodes: &mut Vec<Node>, clipboard: &mut HashMap<String, Vec<Node>>) {
+pub fn resolve_clipboard_copy(nodes: &mut [Node], clipboard: &mut HashMap<String, Vec<Node>>) {
     // The tags currently being copied and their starting node index.
     let mut copying = HashMap::new();
 
