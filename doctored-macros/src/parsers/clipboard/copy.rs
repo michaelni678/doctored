@@ -13,7 +13,7 @@ pub fn parse_clipboard_copy(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta)
         .require_list()?
         .parse_args_with(Punctuated::<Meta, Token![,]>::parse_terminated)?;
 
-    let mut tag = None;
+    let mut name = None;
     let mut head = false;
     let mut modifiers = Vec::new();
 
@@ -28,10 +28,10 @@ pub fn parse_clipboard_copy(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta)
                 return Err(Error::new(value.span(), "expected a string literal"));
             };
 
-            if tag.replace(s.value()).is_some() {
+            if name.replace(s.value()).is_some() {
                 return Err(Error::new(
                     meta.span(),
-                    "tag cannot be specified more than once",
+                    "name cannot be specified more than once",
                 ));
             }
 
@@ -142,18 +142,18 @@ pub fn parse_clipboard_copy(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta)
         }
     }
 
-    let Some(tag) = tag else {
-        return Err(Error::new(meta.span(), "expected a tag"));
+    let Some(name) = name else {
+        return Err(Error::new(meta.span(), "expected a name"));
     };
 
     let kind = if head {
-        ArgumentKind::ClipboardCopyHead { tag, modifiers }
+        ArgumentKind::ClipboardCopyHead { name, modifiers }
     } else {
         if !modifiers.is_empty() {
             return Err(Error::new(meta.span(), "tail cannot have modifiers"));
         }
 
-        ArgumentKind::ClipboardCopyTail { tag }
+        ArgumentKind::ClipboardCopyTail { name }
     };
 
     nodes.push(Node {

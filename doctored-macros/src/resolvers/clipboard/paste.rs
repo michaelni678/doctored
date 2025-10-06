@@ -16,7 +16,7 @@ pub fn resolve_clipboard_paste(
 
     while index < nodes.len() {
         let NodeKind::Argument(ArgumentNode {
-            kind: ArgumentKind::ClipboardPaste { tag, modifiers },
+            kind: ArgumentKind::ClipboardPaste { name, modifiers },
             span,
             ..
         }) = &nodes[index].kind
@@ -25,7 +25,7 @@ pub fn resolve_clipboard_paste(
             continue;
         };
 
-        let Some(mut content) = clipboard.get(tag).cloned() else {
+        let Some(mut content) = clipboard.get(name).cloned() else {
             return Err(Error::new(*span, "paste has no content"));
         };
 

@@ -28,18 +28,18 @@ pub fn resolve_clipboard_copy(
             NodeKind::Argument(ArgumentNode {
                 kind:
                     ArgumentKind::ClipboardCopyHead {
-                        ref tag,
+                        ref name,
                         ref modifiers,
                     },
                 span,
                 ..
             }) => {
-                if let Some(head) = heads.get(tag) {
+                if let Some(head) = heads.get(name) {
                     return Err(Error::new(head.span, "no tail found"));
                 }
 
                 heads.insert(
-                    tag.clone(),
+                    name.clone(),
                     Head {
                         index,
                         span,
@@ -48,11 +48,11 @@ pub fn resolve_clipboard_copy(
                 );
             }
             NodeKind::Argument(ArgumentNode {
-                kind: ArgumentKind::ClipboardCopyTail { ref tag },
+                kind: ArgumentKind::ClipboardCopyTail { ref name },
                 span,
                 ..
             }) => {
-                let Some(head) = heads.remove(tag) else {
+                let Some(head) = heads.remove(name) else {
                     return Err(Error::new(span, "no head found"));
                 };
 
@@ -60,7 +60,7 @@ pub fn resolve_clipboard_copy(
                 resolved_indices.extend([head.index, index]);
             }
             NodeKind::Documentation(_) => {
-                for (tag, head) in heads.iter() {
+                for (name, head) in heads.iter() {
                     let mut node = node.clone();
 
                     let NodeKind::Documentation(DocumentationNode { string, .. }) = &mut node.kind
@@ -70,7 +70,7 @@ pub fn resolve_clipboard_copy(
 
                     apply_clipboard_modifiers(head.modifiers, string);
 
-                    clipboard.entry(tag.clone()).or_default().push(node);
+                    clipboard.entry(name.clone()).or_default().push(node);
                 }
             }
             _ => continue,
