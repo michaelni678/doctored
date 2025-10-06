@@ -53,14 +53,14 @@ pub enum ArgumentKind {
     },
     Highlight,
     ClipboardCopyHead {
-        tag: String,
+        name: String,
         modifiers: Vec<ClipboardModifier>,
     },
     ClipboardCopyTail {
-        tag: String,
+        name: String,
     },
     ClipboardPaste {
-        tag: String,
+        name: String,
         modifiers: Vec<ClipboardModifier>,
     },
 }

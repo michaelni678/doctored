@@ -13,11 +13,11 @@ pub fn parse_clipboard_paste(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta
         .require_list()?
         .parse_args_with(Punctuated::<Meta, Token![,]>::parse_terminated)?;
 
-    let mut tag = None;
+    let mut name = None;
     let mut modifiers = Vec::new();
 
     for meta in metas {
-        if meta.path().is_ident("tag") {
+        if meta.path().is_ident("name") {
             let value = &meta.require_name_value()?.value;
 
             let Expr::Lit(ExprLit {
@@ -27,10 +27,10 @@ pub fn parse_clipboard_paste(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta
                 return Err(Error::new(value.span(), "expected a string literal"));
             };
 
-            if tag.replace(s.value()).is_some() {
+            if name.replace(s.value()).is_some() {
                 return Err(Error::new(
                     meta.span(),
-                    "tag cannot be specified more than once",
+                    "name cannot be specified more than once",
                 ));
             }
         } else if meta.path().is_ident("strip") {
@@ -139,13 +139,13 @@ pub fn parse_clipboard_paste(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta
         }
     }
 
-    let Some(tag) = tag else {
-        return Err(Error::new(meta.span(), "expected a tag"));
+    let Some(name) = name else {
+        return Err(Error::new(meta.span(), "expected a name"));
     };
 
     nodes.push(Node {
         kind: NodeKind::Argument(ArgumentNode {
-            kind: ArgumentKind::ClipboardPaste { tag, modifiers },
+            kind: ArgumentKind::ClipboardPaste { name, modifiers },
             span: meta.span(),
             resolved: false,
         }),
