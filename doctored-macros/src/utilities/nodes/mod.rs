@@ -66,8 +66,7 @@ pub enum ArgumentKind {
     Tag {
         text: String,
         href: Option<String>,
-        text_color: Option<String>,
-        background_color: Option<String>,
+        color: Option<String>,
     },
 }
 

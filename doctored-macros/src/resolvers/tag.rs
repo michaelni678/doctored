@@ -8,13 +8,7 @@ pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
 
     while let Some(node) = nodes.get(index) {
         let NodeKind::Argument(ArgumentNode {
-            kind:
-                ArgumentKind::Tag {
-                    text,
-                    href,
-                    text_color,
-                    background_color,
-                },
+            kind: ArgumentKind::Tag { text, href, color },
             ..
         }) = node.kind.clone()
         else {
@@ -25,16 +19,15 @@ pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
         let span = node.span();
         let style = node.style;
 
-        let href = href.map_or_else(String::new, |href| {
-            format!(r#"tag.setAttribute("href", "{href}");"#)
-        });
-        let text_color = text_color.unwrap_or_else(|| String::from("white"));
-        let background_color =
-            background_color.unwrap_or_else(|| String::from("oklch(50% 27% 110)"));
+        let href = href
+            .map(|href| format!(r#"tag.setAttribute("href", "{href}");"#))
+            .unwrap_or_default();
+
+        let color = color.unwrap_or_else(|| String::from("gray"));
 
         nodes.push(Node {
             kind: NodeKind::Documentation(DocumentationNode {
-                string: String::from(formatdoc! {r#"
+                string: formatdoc! {r#"
                         <script>
                             const heading = document.body.querySelector(".main-heading h1");
 
@@ -68,11 +61,11 @@ pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
                                 border-radius: 0.75rem;
                                 font-size: 1rem;
                                 font-weight: normal;
-                                color: {text_color};
-                                background-color: {background_color};
+                                color: white;
+                                background-color: {color};
                             }}
                         </style>
-                    "#}),
+                    "#},
                 span,
             }),
             style,
