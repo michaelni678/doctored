@@ -7,6 +7,7 @@ use crate::{
         clipboard::{copy::resolve_clipboard_copy, paste::resolve_clipboard_paste},
         highlight::resolve_highlight,
         summary::resolve_summary,
+        tag::resolve_tag,
     },
     utilities::nodes::Node,
 };
@@ -14,6 +15,7 @@ use crate::{
 pub mod clipboard;
 pub mod highlight;
 pub mod summary;
+pub mod tag;
 
 pub fn resolve(nodes: &mut Vec<Node>) -> Result<()> {
     let mut clipboard = HashMap::new();
@@ -24,6 +26,8 @@ pub fn resolve(nodes: &mut Vec<Node>) -> Result<()> {
     resolve_highlight(nodes)?;
 
     resolve_summary(nodes)?;
+
+    resolve_tag(nodes)?;
 
     Ok(())
 }

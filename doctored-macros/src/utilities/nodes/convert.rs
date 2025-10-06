@@ -5,7 +5,10 @@ use syn::{
 };
 
 use crate::{
-    parsers::{clipboard::parse_clipboard, highlight::parse_highlight, summary::parse_summary},
+    parsers::{
+        clipboard::parse_clipboard, highlight::parse_highlight, summary::parse_summary,
+        tag::parse_tag,
+    },
     utilities::nodes::{ArgumentNode, DocumentationNode, Node, NodeKind},
 };
 
@@ -40,6 +43,8 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
                     parse_highlight(&mut nodes, style, meta)?;
                 } else if meta.path().is_ident("clipboard") {
                     parse_clipboard(&mut nodes, style, meta)?;
+                } else if meta.path().is_ident("tag") {
+                    parse_tag(&mut nodes, style, meta)?;
                 } else {
                     unrelated.push(meta);
                 }
