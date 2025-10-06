@@ -3,6 +3,8 @@ use syn::Result;
 
 use crate::utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
 
+const DEFAULT_TAG_COLOR: &'static str = "#4470AD";
+
 pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
     let mut index = 0;
 
@@ -19,11 +21,13 @@ pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
         let span = node.span();
         let style = node.style;
 
+        let text = format!(r#"tag.innerText = "{text}";"#);
+
         let href = href
             .map(|href| format!(r#"tag.setAttribute("href", "{href}");"#))
             .unwrap_or_default();
 
-        let color = color.unwrap_or_else(|| String::from("gray"));
+        let color = color.unwrap_or_else(|| String::from(DEFAULT_TAG_COLOR));
 
         nodes.push(Node {
             kind: NodeKind::Documentation(DocumentationNode {
@@ -37,7 +41,7 @@ pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
                             heading.appendChild(tagContainer);
                             
                             const tag = document.createElement("a");
-                            tag.innerText = "{text}";
+                            {text}
                             {href}
                             tag.className = "doctored-tag";
 
