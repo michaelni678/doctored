@@ -1,4 +1,4 @@
-use indoc::{formatdoc, indoc};
+use indoc::formatdoc;
 use syn::Result;
 
 use crate::utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
@@ -19,45 +19,29 @@ pub fn resolve_summary_mock(nodes: &mut Vec<Node>) -> Result<()> {
         let span = node.span();
         let style = node.style;
 
-        nodes.splice(
-            0..0,
-            [
-                Node {
-                    kind: NodeKind::Documentation(DocumentationNode {
-                        string: formatdoc! {r#"
+        nodes.insert(
+            0,
+            Node {
+                kind: NodeKind::Documentation(DocumentationNode {
+                    string: formatdoc! {r#"
                             <div id="doctored-summary-mock">
                                 {summary}
                             </div>
-                        "#},
-                        span,
-                    }),
-                    style,
-                },
-                Node {
-                    kind: NodeKind::Documentation(DocumentationNode {
-                        string: String::new(),
-                        span,
-                    }),
-                    style,
-                },
-                Node {
-                    kind: NodeKind::Documentation(DocumentationNode {
-                        string: String::from(indoc! {r#"
+
                             <style>
-                                #doctored-summary-mock {
+                                #doctored-summary-mock {{
                                     display: none;
-                                }
+                                }}
                             </style>
-                        "#}),
-                        span,
-                    }),
-                    style,
-                },
-            ],
+                        "#},
+                    span,
+                }),
+                style,
+            },
         );
 
         // Resolve the node, which is now offset by 3.
-        nodes[index + 3].resolve();
+        nodes[index + 1].resolve();
 
         break;
     }
