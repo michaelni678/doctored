@@ -14,7 +14,6 @@ description = "Procedural macros for Doctored"
 proc-macro = true
 
 [dependencies]
-indoc = "2"
 proc-macro2 = "1"
 quote = "1"
 syn = "2"

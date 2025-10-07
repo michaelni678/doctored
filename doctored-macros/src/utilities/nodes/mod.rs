@@ -63,6 +63,11 @@ pub enum ArgumentKind {
         name: String,
         modifiers: Vec<ClipboardModifier>,
     },
+    Tag {
+        text: String,
+        href: Option<String>,
+        color: Option<String>,
+    },
 }
 
 #[derive(Clone)]
