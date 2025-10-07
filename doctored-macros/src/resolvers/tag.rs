@@ -56,29 +56,27 @@ pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
 
 <style>
     .doctored-tag-container {{
-            padding: 0.5rem 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }}
-        
-        .doctored-tag {{
-            display: flex;
-            align-items: center;
-            width: fit-content;
-            height: 1.5rem;
-            padding: 0 0.5rem;
-            border-radius: 0.75rem;
-            font-size: 1rem;
-            font-weight: normal;
-            color: white;
-            background-color: {color};
-        }}
+        padding: 0.5rem 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }}
+    
+    .doctored-tag {{
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        height: 1.5rem;
+        padding: 0 0.5rem;
+        border-radius: 0.75rem;
+        font-size: 1rem;
+        font-weight: normal;
+        color: white;
+        background-color: {color};
+    }}
 </style>
             "#},
         ]);
-
-        println!("{}", &string);
 
         nodes.push(Node {
             kind: NodeKind::Documentation(DocumentationNode { string, span }),
