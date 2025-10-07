@@ -1,9 +1,8 @@
-use indoc::formatdoc;
 use syn::Result;
 
 use crate::utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
 
-const DEFAULT_TAG_COLOR: &'static str = "#4470AD";
+const DEFAULT_TAG_COLOR: &str = "#4470AD";
 
 pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
     let mut index = 0;
@@ -23,56 +22,63 @@ pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
 
         let color = color.unwrap_or_else(|| String::from(DEFAULT_TAG_COLOR));
 
-        let string = formatdoc! {r#"
-            <script>
-                const heading = document.body.querySelector(".main-heading h1");
+        let mut string = String::new();
 
-                const tagContainer = document.createElement("div");
-                tagContainer.className = "doctored-tag-container";
+        string.extend([
+            String::from(
+                r#"
+<script>
+    const heading = document.body.querySelector(".main-heading h1");
 
-                heading.appendChild(tagContainer);
-
-                {}
-
-                tag.innerText = "{text}";
-                tag.className = "doctored-tag";
-
-                tagContainer.appendChild(tag);
-            </script>
-
-            <style>
-                .doctored-tag-container {{
-                    padding: 0.5rem 0;
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 0.5rem;
-                }}
-                
-                .doctored-tag {{
-                    display: flex;
-                    align-items: center;
-                    width: fit-content;
-                    height: 1.5rem;
-                    padding: 0 0.5rem;
-                    border-radius: 0.75rem;
-                    font-size: 1rem;
-                    font-weight: normal;
-                    color: white;
-                    background-color: {color};
-                }}
-            </style>
-        "#,
+    const tagContainer = document.createElement("div");
+    tagContainer.className = "doctored-tag-container";
+            "#,
+            ),
             if let Some(href) = href {
-                formatdoc! {r#"
-                    const tag = document.createElement("a");
-                    tag.setAttribute("href", "{href}");
+                format! {r#"
+    const tag = document.createElement("a");
+    tag.setAttribute("href", "{href}");
                 "#}
             } else {
-                formatdoc! {r#"
-                    const tag = document.createElement("span");
-                "#}
-            }
-        };
+                String::from(
+                    r#"
+    const tag = document.createElement("span");
+                "#,
+                )
+            },
+            format! {r#"
+    tag.className = "doctored-tag";
+    tag.innerText = "{text}";
+
+    tagContainer.appendChild(tag);
+    heading.appendChild(tagContainer);
+</script>
+
+<style>
+    .doctored-tag-container {{
+            padding: 0.5rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }}
+        
+        .doctored-tag {{
+            display: flex;
+            align-items: center;
+            width: fit-content;
+            height: 1.5rem;
+            padding: 0 0.5rem;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-weight: normal;
+            color: white;
+            background-color: {color};
+        }}
+</style>
+            "#},
+        ]);
+
+        println!("{}", &string);
 
         nodes.push(Node {
             kind: NodeKind::Documentation(DocumentationNode { string, span }),

@@ -1,4 +1,3 @@
-use indoc::formatdoc;
 use syn::Result;
 
 use crate::utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
@@ -23,16 +22,16 @@ pub fn resolve_summary_mock(nodes: &mut Vec<Node>) -> Result<()> {
             0,
             Node {
                 kind: NodeKind::Documentation(DocumentationNode {
-                    string: formatdoc! {r#"
-                            <div id="doctored-summary-mock">
-                                {summary}
-                            </div>
+                    string: format! {r#"
+<div id="doctored-summary-mock">
+    {summary}
+</div>
 
-                            <style>
-                                #doctored-summary-mock {{
-                                    display: none;
-                                }}
-                            </style>
+<style>
+    #doctored-summary-mock {{
+        display: none;
+    }}
+</style>
                         "#},
                     span,
                 }),
