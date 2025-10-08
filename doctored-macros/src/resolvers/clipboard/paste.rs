@@ -1,16 +1,14 @@
-use std::collections::HashMap;
-
 use syn::{Error, Result};
 
 use crate::{
     resolvers::clipboard::apply_clipboard_modifiers,
-    utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind},
+    utilities::{
+        context::Context,
+        nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind},
+    },
 };
 
-pub fn resolve_clipboard_paste(
-    nodes: &mut Vec<Node>,
-    clipboard: HashMap<String, Vec<Node>>,
-) -> Result<()> {
+pub fn resolve_clipboard_paste(nodes: &mut Vec<Node>, context: &Context) -> Result<()> {
     let mut resolved_indices = Vec::new();
     let mut index = 0;
 
@@ -25,7 +23,7 @@ pub fn resolve_clipboard_paste(
             continue;
         };
 
-        let Some(mut content) = clipboard.get(name).cloned() else {
+        let Some(mut content) = context.clipboard.get(name).cloned() else {
             return Err(Error::new(*span, "paste has no content"));
         };
 
