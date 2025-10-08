@@ -4,20 +4,20 @@ use crate::{
     resolvers::clipboard::apply_clipboard_modifiers,
     utilities::{
         context::Context,
-        nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind},
+        nodes::{ArgumentKind, ArgumentNode, DocumentationNode, NodeKind},
     },
 };
 
-pub fn resolve_clipboard_paste(nodes: &mut Vec<Node>, context: &Context) -> Result<()> {
+pub fn resolve_clipboard_paste(context: &mut Context) -> Result<()> {
     let mut resolved_indices = Vec::new();
     let mut index = 0;
 
-    while index < nodes.len() {
+    while index < context.nodes.len() {
         let NodeKind::Argument(ArgumentNode {
             kind: ArgumentKind::ClipboardPaste { name, modifiers },
             span,
             ..
-        }) = &nodes[index].kind
+        }) = &context.nodes[index].kind
         else {
             index += 1;
             continue;
@@ -39,11 +39,11 @@ pub fn resolve_clipboard_paste(nodes: &mut Vec<Node>, context: &Context) -> Resu
         index += 1;
 
         // Insert all the copied content behind the paste node.
-        nodes.splice(index..index, content);
+        context.nodes.splice(index..index, content);
     }
 
     for index in resolved_indices {
-        nodes[index].resolve();
+        context.nodes[index].resolve();
     }
 
     Ok(())
