@@ -20,7 +20,8 @@ pub fn resolve_highlight(context: &mut Context) -> Result<()> {
             // This erases "highlight".
             *string = format!("{left}```{right}");
 
-            let style = node.style;
+            let attr_index = node.attr_index;
+            let attr_style = node.attr_style;
             let span = node.span();
 
             context.nodes.insert(
@@ -31,7 +32,8 @@ pub fn resolve_highlight(context: &mut Context) -> Result<()> {
                         resolved: false,
                         span,
                     }),
-                    style,
+                    attr_index,
+                    attr_style,
                 },
             );
 
@@ -58,7 +60,8 @@ pub fn resolve_highlight(context: &mut Context) -> Result<()> {
             continue;
         };
 
-        let style = node.style;
+        let attr_index = node.attr_index;
+        let attr_style = node.attr_style;
         let span = node.span();
 
         let resolved_index = index;
@@ -107,7 +110,8 @@ pub fn resolve_highlight(context: &mut Context) -> Result<()> {
                     string: String::from("# {} /*"),
                     span,
                 }),
-                style,
+                attr_index,
+                attr_style,
             },
         );
 
@@ -132,7 +136,8 @@ pub fn resolve_highlight(context: &mut Context) -> Result<()> {
                     string: String::from("# */"),
                     span,
                 }),
-                style,
+                attr_index,
+                attr_style,
             },
         );
 

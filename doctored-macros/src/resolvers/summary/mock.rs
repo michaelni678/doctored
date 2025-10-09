@@ -18,8 +18,9 @@ pub fn resolve_summary_mock(context: &mut Context) -> Result<()> {
             continue;
         };
 
+        let attr_index = node.attr_index;
+        let attr_style = node.attr_style;
         let span = node.span();
-        let style = node.style;
 
         context.nodes.insert(
             0,
@@ -38,7 +39,8 @@ pub fn resolve_summary_mock(context: &mut Context) -> Result<()> {
                         "#},
                     span,
                 }),
-                style,
+                attr_index,
+                attr_style,
             },
         );
 

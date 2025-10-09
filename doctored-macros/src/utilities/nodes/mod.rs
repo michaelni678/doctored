@@ -8,7 +8,8 @@ pub mod convert;
 #[derive(Clone)]
 pub struct Node {
     pub kind: NodeKind,
-    pub style: AttrStyle,
+    pub attr_index: usize,
+    pub attr_style: AttrStyle,
 }
 
 impl Node {
@@ -16,7 +17,7 @@ impl Node {
         match self.kind {
             NodeKind::Argument(ArgumentNode { span, .. })
             | NodeKind::Documentation(DocumentationNode { span, .. }) => span,
-            NodeKind::Unrelated { ref attr, .. } => attr.span(),
+            NodeKind::Unrelated(ref attr) => attr.span(),
         }
     }
 
@@ -35,7 +36,7 @@ impl Node {
 pub enum NodeKind {
     Argument(ArgumentNode),
     Documentation(DocumentationNode),
-    Unrelated { attr: Attribute, index: usize },
+    Unrelated(Attribute),
 }
 
 #[derive(Clone)]
