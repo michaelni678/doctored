@@ -13,11 +13,12 @@ use crate::{
 };
 
 /// Converts attributes into nodes.
-pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>> {
+pub fn convert_attributes_into_nodes(attrs: &[Attribute]) -> Result<Vec<Node>> {
     let mut nodes = Vec::new();
 
-    for mut attr in attrs {
-        let style = attr.style;
+    for (index, attr) in attrs.iter().enumerate() {
+        let attr_index = index;
+        let attr_style = attr.style;
 
         if attr.path().is_ident("doc")
             && let Meta::NameValue(MetaNameValue { value, .. }) = &attr.meta
@@ -29,7 +30,8 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
 
             nodes.push(Node {
                 kind: NodeKind::Documentation(DocumentationNode { string, span }),
-                style,
+                attr_index: index,
+                attr_style,
             });
         } else if attr.path().is_ident("doc")
             && let Ok(metas) = attr.parse_args_with(Punctuated::<Meta, Token![,]>::parse_terminated)
@@ -38,13 +40,13 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
 
             for meta in metas {
                 if meta.path().is_ident("summary") {
-                    parse_summary(&mut nodes, style, meta)?;
+                    parse_summary(&mut nodes, attr_index, attr_style, meta)?;
                 } else if meta.path().is_ident("highlight") {
-                    parse_highlight(&mut nodes, style, meta)?;
+                    parse_highlight(&mut nodes, attr_index, attr_style, meta)?;
                 } else if meta.path().is_ident("clipboard") {
-                    parse_clipboard(&mut nodes, style, meta)?;
+                    parse_clipboard(&mut nodes, attr_index, attr_style, meta)?;
                 } else if meta.path().is_ident("tag") {
-                    parse_tag(&mut nodes, style, meta)?;
+                    parse_tag(&mut nodes, attr_index, attr_style, meta)?;
                 } else {
                     unrelated.push(meta);
                 }
@@ -52,6 +54,8 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
 
             // Check if some built-in documentation arguments were found.
             if !unrelated.is_empty() {
+                let mut attr = attr.clone();
+
                 let Meta::List(list) = &mut attr.meta else {
                     unreachable!();
                 };
@@ -62,13 +66,17 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
 
                 nodes.push(Node {
                     kind: NodeKind::Unrelated(attr),
-                    style,
+                    attr_index: index,
+                    attr_style,
                 });
             }
         } else {
+            let attr = attr.clone();
+
             nodes.push(Node {
                 kind: NodeKind::Unrelated(attr),
-                style,
+                attr_index: index,
+                attr_style,
             });
         }
     }
@@ -88,7 +96,7 @@ pub fn convert_nodes_into_attributes(nodes: Vec<Node>) -> Result<Vec<Attribute>>
                 }
             }
             NodeKind::Documentation(DocumentationNode { string, .. }) => {
-                attrs.push(match node.style {
+                attrs.push(match node.attr_style {
                     AttrStyle::Outer => parse_quote!(#[doc = #string]),
                     AttrStyle::Inner(_) => parse_quote!(#![doc = #string]),
                 });

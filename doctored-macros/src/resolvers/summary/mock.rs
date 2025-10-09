@@ -1,11 +1,14 @@
 use syn::Result;
 
-use crate::utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
+use crate::utilities::{
+    context::Context,
+    nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind},
+};
 
-pub fn resolve_summary_mock(nodes: &mut Vec<Node>) -> Result<()> {
+pub fn resolve_summary_mock(context: &mut Context) -> Result<()> {
     let mut index = 0;
 
-    while let Some(node) = nodes.get(index) {
+    while let Some(node) = context.nodes.get(index) {
         let NodeKind::Argument(ArgumentNode {
             kind: ArgumentKind::SummaryMock { summary },
             ..
@@ -15,10 +18,11 @@ pub fn resolve_summary_mock(nodes: &mut Vec<Node>) -> Result<()> {
             continue;
         };
 
+        let attr_index = node.attr_index;
+        let attr_style = node.attr_style;
         let span = node.span();
-        let style = node.style;
 
-        nodes.insert(
+        context.nodes.insert(
             0,
             Node {
                 kind: NodeKind::Documentation(DocumentationNode {
@@ -35,12 +39,13 @@ pub fn resolve_summary_mock(nodes: &mut Vec<Node>) -> Result<()> {
                         "#},
                     span,
                 }),
-                style,
+                attr_index,
+                attr_style,
             },
         );
 
         // Resolve the node, which is now offset by 3.
-        nodes[index + 1].resolve();
+        context.nodes[index + 1].resolve();
 
         break;
     }

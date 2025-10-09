@@ -5,7 +5,12 @@ use syn::{
 
 use crate::utilities::nodes::{ArgumentKind, ArgumentNode, Node, NodeKind};
 
-pub fn parse_tag(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta) -> Result<()> {
+pub fn parse_tag(
+    nodes: &mut Vec<Node>,
+    attr_index: usize,
+    attr_style: AttrStyle,
+    meta: Meta,
+) -> Result<()> {
     let metas = meta
         .require_list()?
         .parse_args_with(Punctuated::<Meta, Token![,]>::parse_terminated)?;
@@ -57,10 +62,11 @@ pub fn parse_tag(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta) -> Result<
     nodes.push(Node {
         kind: NodeKind::Argument(ArgumentNode {
             kind: ArgumentKind::Tag { text, href, color },
-            span: meta.span(),
             resolved: false,
+            span: meta.span(),
         }),
-        style,
+        attr_index,
+        attr_style,
     });
 
     Ok(())

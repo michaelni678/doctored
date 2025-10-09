@@ -2,17 +2,23 @@ use syn::{AttrStyle, Meta, Result, spanned::Spanned};
 
 use crate::utilities::nodes::{ArgumentKind, ArgumentNode, Node, NodeKind};
 
-pub fn parse_summary_hide(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta) -> Result<()> {
+pub fn parse_summary_hide(
+    nodes: &mut Vec<Node>,
+    attr_index: usize,
+    attr_style: AttrStyle,
+    meta: Meta,
+) -> Result<()> {
     // Validate the meta is a path.
     meta.require_path_only()?;
 
     nodes.push(Node {
         kind: NodeKind::Argument(ArgumentNode {
             kind: ArgumentKind::SummaryHide,
-            span: meta.span(),
             resolved: false,
+            span: meta.span(),
         }),
-        style,
+        attr_index,
+        attr_style,
     });
 
     Ok(())

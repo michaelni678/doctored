@@ -8,16 +8,21 @@ use crate::{
 pub mod copy;
 pub mod paste;
 
-pub fn parse_clipboard(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta) -> Result<()> {
+pub fn parse_clipboard(
+    nodes: &mut Vec<Node>,
+    attr_index: usize,
+    attr_style: AttrStyle,
+    meta: Meta,
+) -> Result<()> {
     let metas = meta
         .require_list()?
         .parse_args_with(Punctuated::<Meta, Token![,]>::parse_terminated)?;
 
     for meta in metas {
         if meta.path().is_ident("copy") {
-            parse_clipboard_copy(nodes, style, meta)?;
+            parse_clipboard_copy(nodes, attr_index, attr_style, meta)?;
         } else if meta.path().is_ident("paste") {
-            parse_clipboard_paste(nodes, style, meta)?;
+            parse_clipboard_paste(nodes, attr_index, attr_style, meta)?;
         } else {
             return Err(Error::new(meta.span(), "invalid attribute argument"));
         }

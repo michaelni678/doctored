@@ -8,7 +8,8 @@ pub mod convert;
 #[derive(Clone)]
 pub struct Node {
     pub kind: NodeKind,
-    pub style: AttrStyle,
+    pub attr_index: usize,
+    pub attr_style: AttrStyle,
 }
 
 impl Node {
@@ -41,8 +42,8 @@ pub enum NodeKind {
 #[derive(Clone)]
 pub struct ArgumentNode {
     pub kind: ArgumentKind,
-    pub span: Span,
     pub resolved: bool,
+    pub span: Span,
 }
 
 #[derive(Clone)]

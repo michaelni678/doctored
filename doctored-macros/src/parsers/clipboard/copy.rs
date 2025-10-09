@@ -8,7 +8,12 @@ use crate::{
     utilities::nodes::{ArgumentKind, ArgumentNode, Node, NodeKind},
 };
 
-pub fn parse_clipboard_copy(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta) -> Result<()> {
+pub fn parse_clipboard_copy(
+    nodes: &mut Vec<Node>,
+    attr_index: usize,
+    attr_style: AttrStyle,
+    meta: Meta,
+) -> Result<()> {
     let metas = meta
         .require_list()?
         .parse_args_with(Punctuated::<Meta, Token![,]>::parse_terminated)?;
@@ -146,23 +151,22 @@ pub fn parse_clipboard_copy(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta)
         return Err(Error::new(meta.span(), "expected a name"));
     };
 
-    let kind = if head {
-        ArgumentKind::ClipboardCopyHead { name, modifiers }
-    } else {
-        if !modifiers.is_empty() {
-            return Err(Error::new(meta.span(), "tail cannot have modifiers"));
-        }
-
-        ArgumentKind::ClipboardCopyTail { name }
-    };
+    if !head && !modifiers.is_empty() {
+        return Err(Error::new(meta.span(), "tail cannot have modifiers"));
+    }
 
     nodes.push(Node {
         kind: NodeKind::Argument(ArgumentNode {
-            kind,
-            span: meta.span(),
+            kind: if head {
+                ArgumentKind::ClipboardCopyHead { name, modifiers }
+            } else {
+                ArgumentKind::ClipboardCopyTail { name }
+            },
             resolved: false,
+            span: meta.span(),
         }),
-        style,
+        attr_index,
+        attr_style,
     });
 
     Ok(())

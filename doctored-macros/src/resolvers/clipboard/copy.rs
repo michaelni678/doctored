@@ -5,7 +5,10 @@ use syn::{Error, Result};
 
 use crate::{
     resolvers::clipboard::{ClipboardModifier, apply_clipboard_modifiers},
-    utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind},
+    utilities::{
+        context::Context,
+        nodes::{ArgumentKind, ArgumentNode, DocumentationNode, NodeKind},
+    },
 };
 
 struct Head<'a> {
@@ -14,16 +17,13 @@ struct Head<'a> {
     modifiers: &'a [ClipboardModifier],
 }
 
-pub fn resolve_clipboard_copy(
-    nodes: &mut [Node],
-    clipboard: &mut HashMap<String, Vec<Node>>,
-) -> Result<()> {
+pub fn resolve_clipboard_copy(context: &mut Context) -> Result<()> {
     // The heads that haven't found a matching tail.
     let mut heads: HashMap<String, Head> = HashMap::new();
 
     let mut resolved_indices = Vec::new();
 
-    for (index, node) in nodes.iter().enumerate() {
+    for (index, node) in context.nodes.iter().enumerate() {
         match node.kind {
             NodeKind::Argument(ArgumentNode {
                 kind:
@@ -70,7 +70,11 @@ pub fn resolve_clipboard_copy(
 
                     apply_clipboard_modifiers(head.modifiers, string);
 
-                    clipboard.entry(name.clone()).or_default().push(node);
+                    context
+                        .clipboard
+                        .entry(name.clone())
+                        .or_default()
+                        .push(node);
                 }
             }
             _ => continue,
@@ -83,7 +87,7 @@ pub fn resolve_clipboard_copy(
     }
 
     for index in resolved_indices {
-        nodes[index].resolve();
+        context.nodes[index].resolve();
     }
 
     Ok(())
