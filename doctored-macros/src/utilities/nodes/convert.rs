@@ -30,7 +30,7 @@ pub fn convert_attributes_into_nodes(attrs: &[Attribute]) -> Result<Vec<Node>> {
 
             nodes.push(Node {
                 kind: NodeKind::Documentation(DocumentationNode { string, span }),
-                attr_index: index,
+                attr_index,
                 attr_style,
             });
         } else if attr.path().is_ident("doc")
@@ -66,7 +66,7 @@ pub fn convert_attributes_into_nodes(attrs: &[Attribute]) -> Result<Vec<Node>> {
 
                 nodes.push(Node {
                     kind: NodeKind::Unrelated(attr),
-                    attr_index: index,
+                    attr_index,
                     attr_style,
                 });
             }
@@ -75,7 +75,7 @@ pub fn convert_attributes_into_nodes(attrs: &[Attribute]) -> Result<Vec<Node>> {
 
             nodes.push(Node {
                 kind: NodeKind::Unrelated(attr),
-                attr_index: index,
+                attr_index,
                 attr_style,
             });
         }
