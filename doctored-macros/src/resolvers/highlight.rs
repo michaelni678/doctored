@@ -28,8 +28,8 @@ pub fn resolve_highlight(context: &mut Context) -> Result<()> {
                 Node {
                     kind: NodeKind::Argument(ArgumentNode {
                         kind: ArgumentKind::Highlight,
-                        span,
                         resolved: false,
+                        span,
                     }),
                     style,
                 },

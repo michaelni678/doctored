@@ -146,8 +146,8 @@ pub fn parse_clipboard_paste(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta
     nodes.push(Node {
         kind: NodeKind::Argument(ArgumentNode {
             kind: ArgumentKind::ClipboardPaste { name, modifiers },
-            span: meta.span(),
             resolved: false,
+            span: meta.span(),
         }),
         style,
     });

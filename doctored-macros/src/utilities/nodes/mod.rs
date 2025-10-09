@@ -16,7 +16,7 @@ impl Node {
         match self.kind {
             NodeKind::Argument(ArgumentNode { span, .. })
             | NodeKind::Documentation(DocumentationNode { span, .. }) => span,
-            NodeKind::Unrelated(ref attr) => attr.span(),
+            NodeKind::Unrelated { ref attr, .. } => attr.span(),
         }
     }
 
@@ -35,14 +35,14 @@ impl Node {
 pub enum NodeKind {
     Argument(ArgumentNode),
     Documentation(DocumentationNode),
-    Unrelated(Attribute),
+    Unrelated { attr: Attribute, index: usize },
 }
 
 #[derive(Clone)]
 pub struct ArgumentNode {
     pub kind: ArgumentKind,
-    pub span: Span,
     pub resolved: bool,
+    pub span: Span,
 }
 
 #[derive(Clone)]

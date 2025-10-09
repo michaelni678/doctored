@@ -159,8 +159,8 @@ pub fn parse_clipboard_copy(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta)
     nodes.push(Node {
         kind: NodeKind::Argument(ArgumentNode {
             kind,
-            span: meta.span(),
             resolved: false,
+            span: meta.span(),
         }),
         style,
     });

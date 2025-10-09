@@ -13,8 +13,8 @@ pub fn parse_summary_mock(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta) -
         nodes.push(Node {
             kind: NodeKind::Argument(ArgumentNode {
                 kind: ArgumentKind::SummaryMock { summary },
-                span: meta.span(),
                 resolved: false,
+                span: meta.span(),
             }),
             style,
         })

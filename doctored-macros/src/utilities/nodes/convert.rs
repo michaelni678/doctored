@@ -13,10 +13,10 @@ use crate::{
 };
 
 /// Converts attributes into nodes.
-pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>> {
+pub fn convert_attributes_into_nodes(attrs: &[Attribute]) -> Result<Vec<Node>> {
     let mut nodes = Vec::new();
 
-    for mut attr in attrs {
+    for (index, attr) in attrs.iter().enumerate() {
         let style = attr.style;
 
         if attr.path().is_ident("doc")
@@ -52,6 +52,8 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
 
             // Check if some built-in documentation arguments were found.
             if !unrelated.is_empty() {
+                let mut attr = attr.clone();
+
                 let Meta::List(list) = &mut attr.meta else {
                     unreachable!();
                 };
@@ -61,13 +63,15 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
                 list.tokens = quote!(#(#unrelated),*);
 
                 nodes.push(Node {
-                    kind: NodeKind::Unrelated(attr),
+                    kind: NodeKind::Unrelated { attr, index },
                     style,
                 });
             }
         } else {
+            let attr = attr.clone();
+
             nodes.push(Node {
-                kind: NodeKind::Unrelated(attr),
+                kind: NodeKind::Unrelated { attr, index },
                 style,
             });
         }
@@ -93,7 +97,7 @@ pub fn convert_nodes_into_attributes(nodes: Vec<Node>) -> Result<Vec<Attribute>>
                     AttrStyle::Inner(_) => parse_quote!(#![doc = #string]),
                 });
             }
-            NodeKind::Unrelated(attr) => attrs.push(attr),
+            NodeKind::Unrelated { attr, .. } => attrs.push(attr),
         }
     }
 

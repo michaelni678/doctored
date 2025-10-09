@@ -9,8 +9,8 @@ pub fn parse_highlight(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta) -> R
     nodes.push(Node {
         kind: NodeKind::Argument(ArgumentNode {
             kind: ArgumentKind::Highlight,
-            span: meta.span(),
             resolved: false,
+            span: meta.span(),
         }),
         style,
     });

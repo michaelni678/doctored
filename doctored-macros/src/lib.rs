@@ -24,10 +24,10 @@ pub fn doctored(args: TokenStream, input: TokenStream) -> TokenStream {
     parse_macro_input!(args as Nothing);
 
     visit_attributes(input.into(), &mut |attrs| {
-        let nodes = convert_attributes_into_nodes(attrs)?;
-
         let mut context = Context::default();
-        context.nodes.extend(nodes);
+
+        context.attrs = attrs;
+        context.nodes = convert_attributes_into_nodes(&context.attrs)?;
 
         resolve_clipboard_copy(&mut context)?;
         resolve_clipboard_paste(&mut context)?;

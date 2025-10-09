@@ -57,8 +57,8 @@ pub fn parse_tag(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta) -> Result<
     nodes.push(Node {
         kind: NodeKind::Argument(ArgumentNode {
             kind: ArgumentKind::Tag { text, href, color },
-            span: meta.span(),
             resolved: false,
+            span: meta.span(),
         }),
         style,
     });
