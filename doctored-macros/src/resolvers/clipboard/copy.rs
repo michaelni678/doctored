@@ -13,8 +13,8 @@ use crate::{
 
 struct Head<'a> {
     index: usize,
-    span: Span,
     modifiers: &'a [ClipboardModifier],
+    span: Span,
 }
 
 pub fn resolve_clipboard_copy(context: &mut Context) -> Result<()> {
@@ -42,8 +42,8 @@ pub fn resolve_clipboard_copy(context: &mut Context) -> Result<()> {
                     name.clone(),
                     Head {
                         index,
-                        span,
                         modifiers,
+                        span,
                     },
                 );
             }
