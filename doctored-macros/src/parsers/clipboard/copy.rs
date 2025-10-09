@@ -151,19 +151,17 @@ pub fn parse_clipboard_copy(
         return Err(Error::new(meta.span(), "expected a name"));
     };
 
-    let kind = if head {
-        ArgumentKind::ClipboardCopyHead { name, modifiers }
-    } else {
-        if !modifiers.is_empty() {
-            return Err(Error::new(meta.span(), "tail cannot have modifiers"));
-        }
-
-        ArgumentKind::ClipboardCopyTail { name }
-    };
+    if !head && !modifiers.is_empty() {
+        return Err(Error::new(meta.span(), "tail cannot have modifiers"));
+    }
 
     nodes.push(Node {
         kind: NodeKind::Argument(ArgumentNode {
-            kind,
+            kind: if head {
+                ArgumentKind::ClipboardCopyHead { name, modifiers }
+            } else {
+                ArgumentKind::ClipboardCopyTail { name }
+            },
             resolved: false,
             span: meta.span(),
         }),
