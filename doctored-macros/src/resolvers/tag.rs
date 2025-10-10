@@ -20,7 +20,6 @@ pub fn resolve_tag(context: &mut Context) -> Result<()> {
             continue;
         };
 
-        let attr_index = node.attr_index;
         let attr_style = node.attr_style;
         let span = node.span();
 
@@ -84,7 +83,6 @@ pub fn resolve_tag(context: &mut Context) -> Result<()> {
 
         context.nodes.push(Node {
             kind: NodeKind::Documentation(DocumentationNode { string, span }),
-            attr_index,
             attr_style,
         });
 
