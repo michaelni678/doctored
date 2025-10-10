@@ -1,16 +1,13 @@
 use syn::{Error, Result};
 
-use crate::utilities::{
-    context::Context,
-    nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind},
-};
+use crate::utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
 
-pub fn resolve_highlight(context: &mut Context) -> Result<()> {
+pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
     let mut index = 0;
 
     // Loop through the nodes and find in-text highlights and turn them into nodes.
-    while index < context.nodes.len() {
-        let node = &mut context.nodes[index];
+    while index < nodes.len() {
+        let node = &mut nodes[index];
 
         if let NodeKind::Documentation(DocumentationNode { string, .. }) = &mut node.kind
             && let Some((left, right)) = string.split_once("```highlight")
@@ -23,7 +20,7 @@ pub fn resolve_highlight(context: &mut Context) -> Result<()> {
             let attr_style = node.attr_style;
             let span = node.span();
 
-            context.nodes.insert(
+            nodes.insert(
                 index,
                 Node {
                     kind: NodeKind::Argument(ArgumentNode {
@@ -46,8 +43,8 @@ pub fn resolve_highlight(context: &mut Context) -> Result<()> {
     let mut resolved_indices = Vec::new();
     let mut index = 0;
 
-    while index < context.nodes.len() {
-        let node = &context.nodes[index];
+    while index < nodes.len() {
+        let node = &nodes[index];
 
         let NodeKind::Argument(ArgumentNode {
             kind: ArgumentKind::Highlight,
@@ -67,7 +64,7 @@ pub fn resolve_highlight(context: &mut Context) -> Result<()> {
         // Find the start of the code block.
         let string = loop {
             // Validate there is still a node.
-            let Some(node) = context.nodes.get(index) else {
+            let Some(node) = nodes.get(index) else {
                 return Err(Error::new(span, "expected a code block to highlight"));
             };
 
@@ -100,7 +97,7 @@ pub fn resolve_highlight(context: &mut Context) -> Result<()> {
 
         index += 1;
 
-        context.nodes.insert(
+        nodes.insert(
             index,
             Node {
                 kind: NodeKind::Documentation(DocumentationNode {
@@ -113,7 +110,7 @@ pub fn resolve_highlight(context: &mut Context) -> Result<()> {
 
         // Find the end of the code block. If there are no more nodes, the end of the
         // code block is the end of the documentation.
-        while let Some(node) = context.nodes.get(index) {
+        while let Some(node) = nodes.get(index) {
             // If the node is a documentation node, trim leading whitespace characters and
             // check if it starts with backticks.
             if let NodeKind::Documentation(DocumentationNode { string, .. }) = &node.kind
@@ -125,7 +122,7 @@ pub fn resolve_highlight(context: &mut Context) -> Result<()> {
             index += 1;
         }
 
-        context.nodes.insert(
+        nodes.insert(
             index,
             Node {
                 kind: NodeKind::Documentation(DocumentationNode {
@@ -141,7 +138,7 @@ pub fn resolve_highlight(context: &mut Context) -> Result<()> {
     }
 
     for index in resolved_indices {
-        context.nodes[index].resolve();
+        nodes[index].resolve();
     }
 
     Ok(())

@@ -1,16 +1,13 @@
 use syn::Result;
 
-use crate::utilities::{
-    context::Context,
-    nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind},
-};
+use crate::utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
 
 const DEFAULT_TAG_COLOR: &str = "#4470AD";
 
-pub fn resolve_tag(context: &mut Context) -> Result<()> {
+pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
     let mut index = 0;
 
-    while let Some(node) = context.nodes.get(index) {
+    while let Some(node) = nodes.get(index) {
         let NodeKind::Argument(ArgumentNode {
             kind: ArgumentKind::Tag { text, href, color },
             ..
@@ -81,12 +78,12 @@ pub fn resolve_tag(context: &mut Context) -> Result<()> {
             "#},
         ]);
 
-        context.nodes.push(Node {
+        nodes.push(Node {
             kind: NodeKind::Documentation(DocumentationNode { string, span }),
             attr_style,
         });
 
-        context.nodes[index].resolve();
+        nodes[index].resolve();
 
         break;
     }
