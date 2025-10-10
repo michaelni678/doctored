@@ -18,7 +18,6 @@ pub fn resolve_summary_hide(context: &mut Context) -> Result<()> {
             continue;
         };
 
-        let attr_index = node.attr_index;
         let attr_style = node.attr_style;
         let span = node.span();
 
@@ -29,7 +28,6 @@ pub fn resolve_summary_hide(context: &mut Context) -> Result<()> {
                     string: String::from("<!-- -->"),
                     span,
                 }),
-                attr_index,
                 attr_style,
             },
         );

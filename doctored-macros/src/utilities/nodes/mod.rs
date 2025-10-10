@@ -8,9 +8,6 @@ pub mod convert;
 #[derive(Clone)]
 pub struct Node {
     pub kind: NodeKind,
-    /// The index of the attribute that created this node. If a node is created
-    /// from another node, this index should be inherited.
-    pub attr_index: usize,
     pub attr_style: AttrStyle,
 }
 

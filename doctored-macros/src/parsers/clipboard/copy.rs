@@ -10,7 +10,6 @@ use crate::{
 
 pub fn parse_clipboard_copy(
     nodes: &mut Vec<Node>,
-    attr_index: usize,
     attr_style: AttrStyle,
     meta: Meta,
 ) -> Result<()> {
@@ -165,7 +164,6 @@ pub fn parse_clipboard_copy(
             resolved: false,
             span: meta.span(),
         }),
-        attr_index,
         attr_style,
     });
 
