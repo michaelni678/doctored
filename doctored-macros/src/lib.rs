@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use proc_macro::TokenStream;
 use syn::{Error, parse::Nothing, parse_macro_input};
 
@@ -10,7 +12,6 @@ use crate::{
     },
     utilities::{
         attributes::visit::visit_attributes,
-        context::Context,
         nodes::convert::{convert_attributes_into_nodes, convert_nodes_into_attributes},
     },
 };
@@ -24,21 +25,20 @@ pub fn doctored(args: TokenStream, input: TokenStream) -> TokenStream {
     parse_macro_input!(args as Nothing);
 
     visit_attributes(input.into(), &mut |attrs| {
-        let mut context = Context {
-            nodes: convert_attributes_into_nodes(attrs)?,
-            ..Default::default()
-        };
+        let mut clipboard = HashMap::new();
 
-        resolve_clipboard_copy(&mut context)?;
-        resolve_clipboard_paste(&mut context)?;
+        let mut nodes = convert_attributes_into_nodes(attrs)?;
 
-        resolve_highlight(&mut context)?;
+        resolve_clipboard_copy(&mut nodes, &mut clipboard)?;
+        resolve_clipboard_paste(&mut nodes, clipboard)?;
 
-        resolve_summary(&mut context)?;
+        resolve_highlight(&mut nodes)?;
 
-        resolve_tag(&mut context)?;
+        resolve_summary(&mut nodes)?;
 
-        convert_nodes_into_attributes(context.nodes)
+        resolve_tag(&mut nodes)?;
+
+        convert_nodes_into_attributes(nodes)
     })
     .unwrap_or_else(Error::into_compile_error)
     .into()
