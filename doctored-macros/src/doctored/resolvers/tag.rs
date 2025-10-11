@@ -21,48 +21,50 @@ pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
         let span = node.span();
 
         let color = color.unwrap_or_else(|| String::from(DEFAULT_TAG_COLOR));
+        let href = href.unwrap_or_default();
 
         let mut string = String::new();
 
         string.extend([
-            String::from(
-                r#"
+            String::from(r#"
 <script>
-    const heading = document.body.querySelector(".main-heading h1");
+    function createTag(text, color, href) {
+        const heading = document.body.querySelector(".main-heading h1");
 
-    const tagContainer = document.createElement("div");
-    tagContainer.className = "doctored-tag-container";
-            "#,
-            ),
-            if let Some(href) = href {
-                format! {r#"
-    const tag = document.createElement("a");
-    tag.setAttribute("href", "{href}");
-                "#}
-            } else {
-                String::from(
-                    r#"
-    const tag = document.createElement("span");
-                "#,
-                )
-            },
+        const tagContainer = document.createElement("div");
+        tagContainer.className = "doctored-tag-container";
+
+        let tag;
+
+        if (href) {
+            tag = document.createElement("a");
+            tag.setAttribute("href", href);
+        } else {
+            tag = document.createElement("span");
+        }
+
+        tag.className = "doctored-tag";
+        tag.innerText = text;
+        tag.style.backgroundColor = color;
+
+        tagContainer.appendChild(tag);
+        heading.appendChild(tagContainer);
+    }
+            "#),
             format! {r#"
-    tag.className = "doctored-tag";
-    tag.innerText = "{text}";
-
-    tagContainer.appendChild(tag);
-    heading.appendChild(tagContainer);
+    createTag("{text}", "{color}", "{href}");
 </script>
-
+            "#},
+            String::from(r#"
 <style>
-    .doctored-tag-container {{
+    .doctored-tag-container {
         padding: 0.5rem 0;
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;
-    }}
+    }
     
-    .doctored-tag {{
+    .doctored-tag {
         display: flex;
         align-items: center;
         width: fit-content;
@@ -72,10 +74,9 @@ pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
         font-size: 1rem;
         font-weight: normal;
         color: white;
-        background-color: {color};
-    }}
-</style>
-            "#},
+    }
+</style>    
+            "#),
         ]);
 
         nodes.push(Node {
