@@ -4,12 +4,12 @@ use syn::{
     parse_quote, punctuated::Punctuated,
 };
 
-use crate::{
+use crate::doctored::{
+    nodes::{ArgumentNode, DocumentationNode, Node, NodeKind},
     parsers::{
         clipboard::parse_clipboard, highlight::parse_highlight, summary::parse_summary,
         tag::parse_tag,
     },
-    utilities::nodes::{ArgumentNode, DocumentationNode, Node, NodeKind},
 };
 
 /// Converts attributes into nodes.

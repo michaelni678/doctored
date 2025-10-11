@@ -1,8 +1,8 @@
 use syn::{AttrStyle, Error, Meta, Result, Token, punctuated::Punctuated, spanned::Spanned};
 
-use crate::{
+use crate::doctored::{
+    nodes::Node,
     parsers::clipboard::{copy::parse_clipboard_copy, paste::parse_clipboard_paste},
-    utilities::nodes::Node,
 };
 
 pub mod copy;

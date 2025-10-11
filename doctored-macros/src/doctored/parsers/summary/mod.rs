@@ -1,8 +1,8 @@
 use syn::{AttrStyle, Error, Meta, Result, Token, punctuated::Punctuated, spanned::Spanned};
 
-use crate::{
+use crate::doctored::{
+    nodes::Node,
     parsers::summary::{hide::parse_summary_hide, mock::parse_summary_mock},
-    utilities::nodes::Node,
 };
 
 pub mod hide;

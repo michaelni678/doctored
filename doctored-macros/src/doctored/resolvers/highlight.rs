@@ -1,6 +1,6 @@
 use syn::{Error, Result};
 
-use crate::utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
+use crate::doctored::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
 
 pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
     let mut index = 0;

@@ -1,8 +1,8 @@
 use syn::Result;
 
-use crate::{
+use crate::doctored::{
+    nodes::Node,
     resolvers::summary::{hide::resolve_summary_hide, mock::resolve_summary_mock},
-    utilities::nodes::Node,
 };
 
 pub mod hide;

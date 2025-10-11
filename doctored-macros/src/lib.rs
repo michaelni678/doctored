@@ -4,20 +4,19 @@ use proc_macro::TokenStream;
 use syn::{Error, parse::Nothing, parse_macro_input};
 
 use crate::{
-    resolvers::{
-        clipboard::{copy::resolve_clipboard_copy, paste::resolve_clipboard_paste},
-        highlight::resolve_highlight,
-        summary::resolve_summary,
-        tag::resolve_tag,
-    },
-    utilities::{
-        attributes::visit::visit_attributes,
+    doctored::{
         nodes::convert::{convert_attributes_into_nodes, convert_nodes_into_attributes},
+        resolvers::{
+            clipboard::{copy::resolve_clipboard_copy, paste::resolve_clipboard_paste},
+            highlight::resolve_highlight,
+            summary::resolve_summary,
+            tag::resolve_tag,
+        },
     },
+    utilities::attributes::visit::visit_attributes,
 };
 
-mod parsers;
-mod resolvers;
+mod doctored;
 mod utilities;
 
 #[proc_macro_attribute]
