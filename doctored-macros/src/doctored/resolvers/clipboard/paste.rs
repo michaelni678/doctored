@@ -2,9 +2,9 @@ use std::collections::HashMap;
 
 use syn::{Error, Result};
 
-use crate::{
+use crate::doctored::{
+    nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind},
     resolvers::clipboard::apply_clipboard_modifiers,
-    utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind},
 };
 
 pub fn resolve_clipboard_paste(

@@ -1,15 +1,15 @@
 use syn::Result;
 
-use crate::utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
+use crate::doctored::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
 
-pub fn resolve_summary_mock(nodes: &mut Vec<Node>) -> Result<()> {
+pub fn resolve_summary_hide(nodes: &mut Vec<Node>) -> Result<()> {
     let mut index = 0;
 
     while let Some(node) = nodes.get(index) {
         let NodeKind::Argument(ArgumentNode {
-            kind: ArgumentKind::SummaryMock { summary },
+            kind: ArgumentKind::SummaryHide,
             ..
-        }) = &node.kind
+        }) = node.kind
         else {
             index += 1;
             continue;
@@ -22,24 +22,14 @@ pub fn resolve_summary_mock(nodes: &mut Vec<Node>) -> Result<()> {
             0,
             Node {
                 kind: NodeKind::Documentation(DocumentationNode {
-                    string: format! {r#"
-<div id="doctored-summary-mock">
-    {summary}
-</div>
-
-<style>
-    #doctored-summary-mock {{
-        display: none;
-    }}
-</style>
-                        "#},
+                    string: String::from("<!-- -->"),
                     span,
                 }),
                 attr_style,
             },
         );
 
-        // Resolve the node, which is now offset by 3.
+        // Resolve the node, which is now offset by 1.
         nodes[index + 1].resolve();
 
         break;

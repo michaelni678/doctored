@@ -3,9 +3,9 @@ use syn::{
     punctuated::Punctuated, spanned::Spanned,
 };
 
-use crate::{
+use crate::doctored::{
+    nodes::{ArgumentKind, ArgumentNode, Node, NodeKind},
     resolvers::clipboard::ClipboardModifier,
-    utilities::nodes::{ArgumentKind, ArgumentNode, Node, NodeKind},
 };
 
 pub fn parse_clipboard_copy(

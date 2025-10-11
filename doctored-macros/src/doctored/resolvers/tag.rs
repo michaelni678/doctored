@@ -1,6 +1,6 @@
 use syn::Result;
 
-use crate::utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
+use crate::doctored::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
 
 const DEFAULT_TAG_COLOR: &str = "#4470AD";
 

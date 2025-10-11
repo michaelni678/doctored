@@ -3,9 +3,9 @@ use std::collections::HashMap;
 use proc_macro2::Span;
 use syn::{Error, Result};
 
-use crate::{
+use crate::doctored::{
+    nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind},
     resolvers::clipboard::{ClipboardModifier, apply_clipboard_modifiers},
-    utilities::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind},
 };
 
 struct Head<'a> {

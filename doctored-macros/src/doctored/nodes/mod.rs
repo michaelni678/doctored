@@ -1,7 +1,7 @@
 use proc_macro2::Span;
 use syn::{AttrStyle, Attribute, spanned::Spanned};
 
-use crate::resolvers::clipboard::ClipboardModifier;
+use crate::doctored::resolvers::clipboard::ClipboardModifier;
 
 pub mod convert;
 
