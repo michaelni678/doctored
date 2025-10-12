@@ -8,7 +8,7 @@ pub mod convert;
 #[derive(Clone)]
 pub struct Node {
     pub kind: NodeKind,
-    pub attr_style: AttrStyle,
+    pub style: AttrStyle,
 }
 
 impl Node {

@@ -17,7 +17,7 @@ pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
             continue;
         };
 
-        let attr_style = node.attr_style;
+        let style = node.style;
         let span = node.span();
 
         let color = color.unwrap_or_else(|| String::from(DEFAULT_TAG_COLOR));
@@ -26,7 +26,8 @@ pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
         let mut string = String::new();
 
         string.extend([
-            String::from(r#"
+            String::from(
+                r#"
 <script>
     function createTag(text, color, href) {
         const heading = document.body.querySelector(".main-heading h1");
@@ -50,12 +51,14 @@ pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
         tagContainer.appendChild(tag);
         heading.appendChild(tagContainer);
     }
-            "#),
+            "#,
+            ),
             format! {r#"
     createTag("{text}", "{color}", "{href}");
 </script>
             "#},
-            String::from(r#"
+            String::from(
+                r#"
 <style>
     .doctored-tag-container {
         padding: 0.5rem 0;
@@ -76,12 +79,13 @@ pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
         color: white;
     }
 </style>    
-            "#),
+            "#,
+            ),
         ]);
 
         nodes.push(Node {
             kind: NodeKind::Documentation(DocumentationNode { string, span }),
-            attr_style,
+            style,
         });
 
         nodes[index].resolve();

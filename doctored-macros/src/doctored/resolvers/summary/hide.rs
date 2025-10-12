@@ -15,7 +15,7 @@ pub fn resolve_summary_hide(nodes: &mut Vec<Node>) -> Result<()> {
             continue;
         };
 
-        let attr_style = node.attr_style;
+        let style = node.style;
         let span = node.span();
 
         nodes.insert(
@@ -25,7 +25,7 @@ pub fn resolve_summary_hide(nodes: &mut Vec<Node>) -> Result<()> {
                     string: String::from("<!-- -->"),
                     span,
                 }),
-                attr_style,
+                style,
             },
         );
 
