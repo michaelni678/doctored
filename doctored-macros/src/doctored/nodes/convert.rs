@@ -17,7 +17,7 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
     let mut nodes = Vec::new();
 
     for attr in attrs {
-        let attr_style = attr.style;
+        let style = attr.style;
 
         if attr.path().is_ident("doc")
             && let Meta::NameValue(MetaNameValue { value, .. }) = &attr.meta
@@ -29,7 +29,7 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
 
             nodes.push(Node {
                 kind: NodeKind::Documentation(DocumentationNode { string, span }),
-                attr_style,
+                style,
             });
         } else if attr.path().is_ident("doc")
             && let Ok(metas) = attr.parse_args_with(Punctuated::<Meta, Token![,]>::parse_terminated)
@@ -38,13 +38,13 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
 
             for meta in metas {
                 if meta.path().is_ident("summary") {
-                    parse_summary(&mut nodes, attr_style, meta)?;
+                    parse_summary(&mut nodes, style, meta)?;
                 } else if meta.path().is_ident("highlight") {
-                    parse_highlight(&mut nodes, attr_style, meta)?;
+                    parse_highlight(&mut nodes, style, meta)?;
                 } else if meta.path().is_ident("clipboard") {
-                    parse_clipboard(&mut nodes, attr_style, meta)?;
+                    parse_clipboard(&mut nodes, style, meta)?;
                 } else if meta.path().is_ident("tag") {
-                    parse_tag(&mut nodes, attr_style, meta)?;
+                    parse_tag(&mut nodes, style, meta)?;
                 } else {
                     unrelated.push(meta);
                 }
@@ -64,7 +64,7 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
 
                 nodes.push(Node {
                     kind: NodeKind::Unrelated(attr),
-                    attr_style,
+                    style,
                 });
             }
         } else {
@@ -72,7 +72,7 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
 
             nodes.push(Node {
                 kind: NodeKind::Unrelated(attr),
-                attr_style,
+                style,
             });
         }
     }
@@ -92,7 +92,7 @@ pub fn convert_nodes_into_attributes(nodes: Vec<Node>) -> Result<Vec<Attribute>>
                 }
             }
             NodeKind::Documentation(DocumentationNode { string, .. }) => {
-                attrs.push(match node.attr_style {
+                attrs.push(match node.style {
                     AttrStyle::Outer => parse_quote!(#[doc = #string]),
                     AttrStyle::Inner(_) => parse_quote!(#![doc = #string]),
                 });

@@ -8,11 +8,7 @@ use crate::doctored::{
     resolvers::clipboard::ClipboardModifier,
 };
 
-pub fn parse_clipboard_copy(
-    nodes: &mut Vec<Node>,
-    attr_style: AttrStyle,
-    meta: Meta,
-) -> Result<()> {
+pub fn parse_clipboard_copy(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta) -> Result<()> {
     let metas = meta
         .require_list()?
         .parse_args_with(Punctuated::<Meta, Token![,]>::parse_terminated)?;
@@ -164,7 +160,7 @@ pub fn parse_clipboard_copy(
             resolved: false,
             span: meta.span(),
         }),
-        attr_style,
+        style,
     });
 
     Ok(())

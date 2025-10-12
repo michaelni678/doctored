@@ -17,7 +17,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
             // This erases "highlight".
             *string = format!("{left}```{right}");
 
-            let attr_style = node.attr_style;
+            let style = node.style;
             let span = node.span();
 
             nodes.insert(
@@ -28,7 +28,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
                         resolved: false,
                         span,
                     }),
-                    attr_style,
+                    style,
                 },
             );
 
@@ -55,7 +55,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
             continue;
         };
 
-        let attr_style = node.attr_style;
+        let style = node.style;
         let span = node.span();
 
         let resolved_index = index;
@@ -104,7 +104,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
                     string: String::from("# {} /*"),
                     span,
                 }),
-                attr_style,
+                style,
             },
         );
 
@@ -129,7 +129,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
                     string: String::from("# */"),
                     span,
                 }),
-                attr_style,
+                style,
             },
         );
 

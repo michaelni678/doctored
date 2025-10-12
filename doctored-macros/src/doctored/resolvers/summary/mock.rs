@@ -15,7 +15,7 @@ pub fn resolve_summary_mock(nodes: &mut Vec<Node>) -> Result<()> {
             continue;
         };
 
-        let attr_style = node.attr_style;
+        let style = node.style;
         let span = node.span();
 
         nodes.insert(
@@ -35,7 +35,7 @@ pub fn resolve_summary_mock(nodes: &mut Vec<Node>) -> Result<()> {
                         "#},
                     span,
                 }),
-                attr_style,
+                style,
             },
         );
 
