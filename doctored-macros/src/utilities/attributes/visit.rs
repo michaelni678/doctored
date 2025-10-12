@@ -15,13 +15,13 @@ where
     Parser::parse2(
         |input: ParseStream| {
             while !input.is_empty() {
-                if input.peek(Token![#]) {
-                    let attrs = if input.peek2(Token![!]) {
+                if input.peek(Token![#])
+                    && let Ok(attrs) = if input.peek2(Token![!]) {
                         Attribute::parse_inner(input)
                     } else {
                         Attribute::parse_outer(input)
-                    }?;
-
+                    }
+                {
                     let attrs = f(attrs)?;
 
                     expansion.extend(quote!(#(#attrs)*));
