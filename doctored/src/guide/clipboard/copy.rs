@@ -6,10 +6,11 @@
 //!
 //! # Example
 //!
+//! ## Source Code
 #![doc(highlight)]
 //! ```
-#![doc(extras(include(documentation = "doctored/src/guide/clipboard/copy.example.rs")))]
+#![doc(extras(include(documentation = "doctored/src/guide/clipboard/copy.example")))]
 //! ```
 //! 
-//! # Expansion
-#![doc(extras(include(attributes = "doctored/src/guide/clipboard/copy.example.rs")))]
+//! ## Generated Docs
+#![doc(extras(include(attributes = "doctored/src/guide/clipboard/copy.example")))]
