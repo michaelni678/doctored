@@ -1,30 +1,16 @@
 #![cfg_attr(any(feature = "documentation", docsrs), doctored::doctored)]
 
 //! Copies documentation.
-//! 
+//!
 //! Used in tandem with the [paste](super::paste) attribute argument.
-//! 
+//!
 //! # Example
 //!
-//! The code below defines a function `middle`, which finds the integer in the
-//! center of the two given integers.
-//!
+//! ## Source Code
+#![doc(highlight)]
 //! ```
-#![doc(clipboard(copy(head = "function")))]
-//! pub fn middle(a: usize, b: usize) -> usize {
-//!     assert!(a <= b);
-#![doc(clipboard(copy(head = "equation", strip)))]
-//!     a + (b - a) / 2
-#![doc(clipboard(copy(tail = "equation")))]
-//! }
-#![doc(clipboard(copy(tail = "function")))]
+#![doc(extras(include(documentation = "doctored/src/guide/clipboard/copy.example")))]
 //! ```
 //! 
-//! This is a doctest for the `middle` function.
-//! ```
-#![doc(clipboard(paste(name = "function", push(left = "#"))))]
-//! assert_eq!(middle(6, 8), 7);
-//! ```
-//! 
-//! To avoid integer overflow, the middle is calculated with the equation
-#![doc(clipboard(paste(name = "equation", push(left = "`", right = "`."))))]
+//! ## Generated Docs
+#![doc(extras(include(attributes = "doctored/src/guide/clipboard/copy.example")))]
