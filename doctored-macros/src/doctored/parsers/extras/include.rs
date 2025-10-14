@@ -1,4 +1,7 @@
-use syn::{AttrStyle, Error, Expr, ExprLit, Lit, Meta, Result, spanned::Spanned};
+use syn::{
+    AttrStyle, Error, Expr, ExprLit, Lit, Meta, Result, Token, punctuated::Punctuated,
+    spanned::Spanned,
+};
 
 use crate::doctored::{
     nodes::{ArgumentKind, ArgumentNode, Node, NodeKind},
@@ -6,34 +9,40 @@ use crate::doctored::{
 };
 
 pub fn parse_extras_include(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta) -> Result<()> {
-    // Validate the meta is a name-value pair.
-    let value = &meta.require_name_value()?.value;
+    let metas = meta
+        .require_list()?
+        .parse_args_with(Punctuated::<Meta, Token![,]>::parse_terminated)?;
 
-    let Expr::Lit(ExprLit {
-        lit: Lit::Str(s), ..
-    }) = value
-    else {
-        return Err(Error::new(value.span(), "expected a string literal"));
-    };
+    for meta in metas {
+        // Validate the meta is a name-value pair.
+        let value = &meta.require_name_value()?.value;
 
-    let filename = s.value();
+        let Expr::Lit(ExprLit {
+            lit: Lit::Str(s), ..
+        }) = value
+        else {
+            return Err(Error::new(value.span(), "expected a string literal"));
+        };
 
-    let kind = if meta.path().is_ident("attributes") {
-        IncludeKind::Attributes
-    } else if meta.path().is_ident("documentation") {
-        IncludeKind::Documentation
-    } else {
-        return Err(Error::new(meta.span(), "invalid attribute argument"));
-    };
+        let filename = s.value();
 
-    nodes.push(Node {
-        kind: NodeKind::Argument(ArgumentNode {
-            kind: ArgumentKind::Include { kind, filename },
-            resolved: false,
-            span: meta.span(),
-        }),
-        style,
-    });
+        let kind = if meta.path().is_ident("attributes") {
+            IncludeKind::Attributes
+        } else if meta.path().is_ident("documentation") {
+            IncludeKind::Documentation
+        } else {
+            return Err(Error::new(meta.span(), "invalid attribute argument"));
+        };
+
+        nodes.push(Node {
+            kind: NodeKind::Argument(ArgumentNode {
+                kind: ArgumentKind::Include { kind, filename },
+                resolved: false,
+                span: meta.span(),
+            }),
+            style,
+        });
+    }
 
     Ok(())
 }
