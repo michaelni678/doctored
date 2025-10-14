@@ -3,6 +3,9 @@ use syn::{AttrStyle, Attribute, spanned::Spanned};
 
 use crate::doctored::resolvers::clipboard::ClipboardModifier;
 
+#[cfg(feature = "extras")]
+use crate::doctored::resolvers::extras::include::IncludeKind;
+
 pub mod convert;
 
 #[derive(Clone)]
@@ -67,6 +70,11 @@ pub enum ArgumentKind {
         text: String,
         href: Option<String>,
         color: Option<String>,
+    },
+    #[cfg(feature = "extras")]
+    Include {
+        kind: IncludeKind,
+        filename: String,
     },
 }
 

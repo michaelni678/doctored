@@ -13,6 +13,9 @@ description = "Procedural macros for Doctored"
 [lib]
 proc-macro = true
 
+[features]
+extras = []
+
 [dependencies]
 proc-macro2 = "1"
 quote = "1"

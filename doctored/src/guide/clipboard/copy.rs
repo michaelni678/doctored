@@ -1,9 +1,9 @@
 #![cfg_attr(any(feature = "documentation", docsrs), doctored::doctored)]
 
 //! Copies documentation.
-//! 
+//!
 //! Used in tandem with the [paste](super::paste) attribute argument.
-//! 
+//!
 //! # Example
 //!
 //! The code below defines a function `middle`, which finds the integer in the

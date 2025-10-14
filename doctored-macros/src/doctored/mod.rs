@@ -26,6 +26,13 @@ pub fn doctored(input: TokenStream2) -> Result<TokenStream2> {
 
         let mut nodes = convert_attributes_into_nodes(attrs)?;
 
+        #[cfg(feature = "extras")]
+        {
+            use crate::doctored::resolvers::extras::include::resolve_extras_include;
+
+            resolve_extras_include(&mut nodes)?;
+        }
+
         resolve_clipboard_copy(&mut nodes, &mut clipboard)?;
         resolve_clipboard_paste(&mut nodes, clipboard)?;
 

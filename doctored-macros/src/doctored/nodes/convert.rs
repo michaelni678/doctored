@@ -46,6 +46,16 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
                 } else if meta.path().is_ident("tag") {
                     parse_tag(&mut nodes, style, meta)?;
                 } else {
+                    #[cfg(feature = "extras")]
+                    {
+                        use crate::doctored::parsers::extras::parse_extras;
+
+                        if meta.path().is_ident("extras") {
+                            parse_extras(&mut nodes, style, meta)?;
+                            continue;
+                        }
+                    }
+
                     unrelated.push(meta);
                 }
             }

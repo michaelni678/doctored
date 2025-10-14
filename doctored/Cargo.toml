@@ -17,7 +17,7 @@ rustdoc-args = ["--cfg", "docsrs"]
 
 [features]
 documentation = []
-guide = []
+guide = ["doctored-macros/extras"]
 
 [dependencies]
 doctored-macros = { path = "../doctored-macros", version = "0.1.0" }
