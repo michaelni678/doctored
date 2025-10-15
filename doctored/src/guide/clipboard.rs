@@ -2,6 +2,10 @@
 
 //! Clipboard operations.
 //!
+//! Copying and pasting documentation helps maintain a single source of truth.
+//! This is especially useful when multiple doctests contain repeated
+//! boilerplate code.
+//!
 //! # Copy Operation
 //!
 //! The `copy` operation copies all documentation between a matching head and
