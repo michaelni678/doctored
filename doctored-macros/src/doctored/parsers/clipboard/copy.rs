@@ -111,27 +111,18 @@ pub fn parse_clipboard_copy(nodes: &mut Vec<Node>, style: AttrStyle, meta: Meta)
                 .parse_args_with(Punctuated::<Meta, Token![,]>::parse_terminated)?;
 
             for meta in metas {
+                let value = &meta.require_name_value()?.value;
+
+                let Expr::Lit(ExprLit {
+                    lit: Lit::Str(s), ..
+                }) = value
+                else {
+                    return Err(Error::new(value.span(), "expected a string literal"));
+                };
+
                 if meta.path().is_ident("left") {
-                    let value = &meta.require_name_value()?.value;
-
-                    let Expr::Lit(ExprLit {
-                        lit: Lit::Str(s), ..
-                    }) = value
-                    else {
-                        return Err(Error::new(value.span(), "expected a string literal"));
-                    };
-
                     modifiers.push(ClipboardModifier::PushLeft(s.value()));
                 } else if meta.path().is_ident("right") {
-                    let value = &meta.require_name_value()?.value;
-
-                    let Expr::Lit(ExprLit {
-                        lit: Lit::Str(s), ..
-                    }) = value
-                    else {
-                        return Err(Error::new(value.span(), "expected a string literal"));
-                    };
-
                     modifiers.push(ClipboardModifier::PushRight(s.value()));
                 } else {
                     return Err(Error::new(meta.span(), "invalid attribute argument"));
