@@ -2,26 +2,39 @@
 
 //! Clipboard operations.
 //!
-//! # Copy
+//! # Copy Operation
 //!
 //! The `copy` operation copies all documentation between a matching head and
 //! tail under the specified name.
 //!
-//! # Paste
+//! ## Arguments
+//!
+//! | Arguments               | Description                                                 |
+//! |-------------------------|-------------------------------------------------------------|
+//! | `head = "name"`         | Marks the start of content copied under the specified name. |
+//! | `tail = "name"`         | Marks the end of content copied under the specified name.   |
+//! | [Modifiers](#modifiers) | Modifies each line of documentation prior to copying.       |
+//!
+//! # Paste Operation
 //!
 //! The `paste` operation pastes content under the specified name.
+//!
+//! ## Arguments
+//!
+//! | Arguments               | Description                                           |
+//! |-------------------------|-------------------------------------------------------|
+//! | `name = "name"`         | Pastes content copied under the specified name.       |
+//! | [Modifiers](#modifiers) | Modifies each line of documentation prior to pasting. |
 //!
 //! # Modifiers
 //!
 //! When copying and pasting documentation, modifiers can be applied to change
-//! the documentation.
+//! the documentation. If multiple modifiers are supplied, they are applied in
+//! the order of declaration.
 //!
-//! When a modifier is applied to a copy operation, all
-//! pastes will have the modification. When a modifier is applied to a paste
-//! operation, only the single paste will have the modification. Multiple
-//! modifiers can be supplied, and they are applied in the order of declaration.
+//! ## Arguments
 //!
-//! | Modifier                  | Description                                       |
+//! | Arguments                 | Description                                       |
 //! |---------------------------|---------------------------------------------------|
 //! | `strip`                   | Strips whitespace on both sides of each line.     |
 //! | `strip(left)`             | Strips whitespace on the left side of each line.  |
