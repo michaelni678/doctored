@@ -1,74 +1,21 @@
 #![cfg_attr(any(feature = "documentation", docsrs), doctored::doctored)]
 
-//! Apply Rust syntax highlighting to a code block.
+//! Syntax highlighting for code blocks.
 //!
-//! The [ignore attribute](https://doc.rust-lang.org/rustdoc/write-documentation/documentation-tests.html#attributes)
-//! can be used to skip a doctest. However, a tooltip appears on the generated
-//! documentation, indicating the code block hasn't been tested.
+//! The `highlight` attribute argument applies Rust syntax highlighting to code
+//! blocks. When the code block is doctested, the test will always pass,
+//! regardless of whether the code can compile.
 //!
-//! ```ignore
-//! let bytes = include_bytes!("spanish.in");
-//! assert_eq!(bytes, b"adi\xc3\xb3s\n");
-//! ```
-//!
-//! Like the `ignore` attribute, Doctored's `highlight` attribute also
-//! syntax-highlights the code block and doesn't compile it. However, the
-//! tooltip indicating the code block hasn't been tested is not shown.
-#![doc(highlight)]
-//! ```
-//! let bytes = include_bytes!("spanish.in");
-//! assert_eq!(bytes, b"adi\xc3\xb3s\n");
-//! ```
-//!
-//! When doctesting, code blocks with the `ignore` attribute are skipped.
-//! Unfortunately, code blocks with the `highlight` attribute are not skipped.
-//! However, the doctest is empty and should always pass.
-//!
-//! # Syntax
-//!
-//! The `highlight` attribute can be used in the same way as the built-in
-//! doctest attributes.
-//!
-//! ```
-//! /// ```highlight
-//! /// fn foo() {}
-//! /// ```
-//! ```
-//!
-//! Alternatively, you can use an actual attribute.
-//!
-//! ```
-//! #[doc(highlight)]
-//! /// ```
-//! /// fn foo() {}
-//! /// ```
-//! ```
-//!
-//! # Use Cases
-//!
-//! This can be useful for illustrating general structure. The code block below
-//! demonstrates a hypothetical `fruits` procedural macro. The ellipsis (`...`)
-//! in the attribute indicates optional arguments, and the ellipsis in the
-//! struct fields indicates that more fields may be present.
-#![doc(highlight)]
-//! ```
-//! #[fruits(...)]
-//! pub struct Fruits {
-//!     apples: usize,
-//!     oranges: usize,
-//!     ...
-//! }
-//! ```
+//! This behaves similarly to Rust's built-in [`ignore` attribute](https://doc.rust-lang.org/rustdoc/write-documentation/documentation-tests.html#attributes).
+//! The key difference is that doctests marked with `ignore` display a tooltip
+//! stating that the code block was not tested, whereas those generated with
+//! `highlight` do not.
 //!
 //! # Example
-//!
-//! Below is a demonstration of the `highlight` attribute.
-//!
-//! ## Source Code
 #![doc(highlight)]
 //! ```
 #![doc(extras(include(documentation = "doctored/src/guide/highlight.example")))]
 //! ```
 //! 
-//! ## Generated Docs
+//! # Expansion
 #![doc(extras(include(attributes = "doctored/src/guide/highlight.example")))]
