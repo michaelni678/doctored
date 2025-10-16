@@ -38,7 +38,7 @@
 //! Add the snippet below to the top of modules that use Doctored.
 //!
 //! ```text
-//! #![cfg_attr(feature = "guide", doctored::doctored)]
+//! #![cfg_attr(feature = "nightly", doctored::doctored)]
 //! ```
 
 extern crate self as doctored;
