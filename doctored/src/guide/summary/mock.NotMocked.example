@@ -1,0 +1,8 @@
+/// This summary appears in the documentation!
+///
+/// The text above appears in the module overview, as well as on the actual
+/// documentation.
+///
+/// # Related
+///
+/// - [`Mocked`] has a fake summary.
