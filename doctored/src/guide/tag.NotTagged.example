@@ -1,0 +1,6 @@
+/// This struct has default documentation generation.
+///
+/// # Related
+///
+/// - [Tagged] has a tag without a hyperlink.
+/// - [HyperlinkTagged] has a tag with a hyperlink. 
