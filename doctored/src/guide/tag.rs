@@ -1,8 +1,19 @@
 #![cfg_attr(feature = "guide", doctored::doctored)]
-
 #![rustfmt::skip]
 
 //! Categorize items.
+//!
+//! # Arguments
+//!
+//! | Arguments         | Description                  |
+//! |-------------------|------------------------------|
+//! | `color = "color"` | Sets the color of the tag.   |
+//! | `href = "href"`   | Adds a hyperlink to the tag. |
+//!
+//! ## Color
+//!
+//! Any [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value)
+//! can be used. If no color is specified, the tag will default to `steelblue`.
 //!
 //! # Example
 #![doc(highlight)]
@@ -20,7 +31,6 @@
 //! # Expansion
 //!
 //! See [`Tagged`], [`HyperlinkTagged`], and [`NotTagged`].
-
 
 #[doc(extras(include(attributes = "doctored/src/guide/tag.Tagged.example")))]
 pub struct Tagged;
