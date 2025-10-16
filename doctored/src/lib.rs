@@ -1,7 +1,6 @@
-#![cfg_attr(feature = "guide", feature(doc_auto_cfg))]
 #![cfg_attr(
-    any(feature = "guide"),
-    feature(custom_inner_attributes, proc_macro_hygiene)
+    feature = "guide",
+    feature(doc_auto_cfg, custom_inner_attributes, proc_macro_hygiene)
 )]
 
 //! Rust documentation utilities.
