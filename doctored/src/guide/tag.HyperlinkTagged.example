@@ -1,0 +1,7 @@
+#[doc(tag(text = "Hello", href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"))]
+/// This struct is hyperlink tagged.
+///
+/// # Related
+///
+/// - [`Tagged`] has a tag without a hyperlink. 
+/// - [`NotTagged`] has default documentation generation.

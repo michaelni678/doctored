@@ -1,0 +1,7 @@
+#[doc(summary(mock = "This summary doesn't appear in the documentation!"))]
+/// This is the first line, but the summary in the module overview is
+/// different!
+///
+/// # Related
+///
+/// - [`NotMocked`] has default documentation generation.

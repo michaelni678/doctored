@@ -1,0 +1,7 @@
+#[doc(tag(text = "Hello", color = "#44ad67ff"))]
+/// This struct is tagged.
+///
+/// # Related
+///
+/// - [`HyperlinkTagged`] has a tag with a hyperlink. 
+/// - [`NotTagged`] has default documentation generation.

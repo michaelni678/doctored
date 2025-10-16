@@ -1,27 +1,43 @@
 #![cfg_attr(feature = "guide", doctored::doctored)]
 
-//! Categorize items.
+#![rustfmt::skip]
 
-#[doc(tag(text = "Struct", color = "#44ad67ff"))]
-/// This struct is tagged.
-///
-/// See [Untagged] for its counterpart.
+//! Categorize items.
+//!
+//! # Arguments
+//!
+//! | Arguments         | Description                  |
+//! |-------------------|------------------------------|
+//! | `color = "color"` | Sets the color of the tag.   |
+//! | `href = "href"`   | Adds a hyperlink to the tag. |
+//!
+//! ## Color
+//!
+//! Any [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value)
+//! can be used. If no color is specified, the tag will default to `steelblue`.
+//!
+//! # Example
+#![doc(highlight)]
+//! ```
+#![doc(extras(include(documentation = "doctored/src/guide/tag.Tagged.example")))]
+//! pub struct Tagged;
+//!
+#![doc(extras(include(documentation = "doctored/src/guide/tag.HyperlinkTagged.example")))]
+//! pub struct HyperlinkTagged;
+//!
+#![doc(extras(include(documentation = "doctored/src/guide/tag.NotTagged.example")))]
+//! pub struct NotTagged;
+//! ```
+//!
+//! # Expansion
+//!
+//! See [`Tagged`], [`HyperlinkTagged`], and [`NotTagged`].
+
+#[doc(extras(include(attributes = "doctored/src/guide/tag.Tagged.example")))]
 pub struct Tagged;
 
-/// This struct is not tagged.
-///
-/// See [Tagged] for its counterpart.
-pub struct Untagged;
+#[doc(extras(include(attributes = "doctored/src/guide/tag.HyperlinkTagged.example")))]
+pub struct HyperlinkTagged;
 
-pub mod tagged {
-    #![doc(tag(text = "Module", href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"))]
-    //! This module is tagged with a hyperlink.
-    //!
-    //! See [untagged](super::untagged) for its counterpart.
-}
-
-pub mod untagged {
-    //! This module is not tagged.
-    //!
-    //! See [tagged](super::tagged) for its counterpart.
-}
+#[doc(extras(include(attributes = "doctored/src/guide/tag.NotTagged.example")))]
+pub struct NotTagged;

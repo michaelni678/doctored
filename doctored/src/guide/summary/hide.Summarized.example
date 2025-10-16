@@ -1,0 +1,9 @@
+#[doc(summary(hide))]
+/// This summary is hidden!
+///
+/// Even though the text above is on the first line, it does not appear in the
+/// module overview.
+///
+/// # Related
+///
+/// - [`NotSummarized`] has default documentation generation.

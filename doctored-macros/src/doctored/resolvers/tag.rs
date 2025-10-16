@@ -2,7 +2,7 @@ use syn::Result;
 
 use crate::doctored::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
 
-const DEFAULT_TAG_COLOR: &str = "#4470AD";
+const DEFAULT_TAG_COLOR: &str = "steelblue";
 
 pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
     let mut index = 0;
