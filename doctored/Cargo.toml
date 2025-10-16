@@ -14,10 +14,8 @@ include = ["/src/guide/**/*.example"]
 
 [package.metadata.docs.rs]
 all-features = true
-rustdoc-args = ["--cfg", "docsrs"]
 
 [features]
-documentation = []
 guide = ["doctored-macros/extras"]
 
 [dependencies]
