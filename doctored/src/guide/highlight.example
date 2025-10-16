@@ -1,5 +1,14 @@
-//! The code block below cannot be doctested, since it has an external file
+//! The code blocks below cannot be doctested, since they have an external file
 //! dependency. 
+//!
+//! The code block below uses the built-in `ignore` attribute.
+//!
+//! ```ignore
+//! let bytes = include_bytes!("spanish.in");
+//! assert_eq!(bytes, b"adi\xc3\xb3s\n");
+//! ```
+//!
+//! The code block below uses Doctored's `highlight` attribute.
 //!
 //! ```highlight
 //! let bytes = include_bytes!("spanish.in");
