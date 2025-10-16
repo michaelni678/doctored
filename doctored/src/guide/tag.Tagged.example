@@ -3,5 +3,5 @@
 ///
 /// # Related
 ///
-/// - [HyperlinkTagged] has a tag with a hyperlink. 
-/// - [NotTagged] has default documentation generation.
+/// - [`HyperlinkTagged`] has a tag with a hyperlink. 
+/// - [`NotTagged`] has default documentation generation.
