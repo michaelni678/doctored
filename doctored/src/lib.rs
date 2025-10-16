@@ -35,9 +35,9 @@
 //!     feature(custom_inner_attributes, proc_macro_hygiene)
 //! )]
 //! ```
-//! 
+//!
 //! Add the snippet below to the top of modules that use Doctored.
-//! 
+//!
 //! ```text
 //! #![cfg_attr(feature = "guide", doctored::doctored)]
 //! ```
