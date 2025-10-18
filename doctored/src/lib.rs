@@ -6,7 +6,7 @@
 //! Rust documentation utilities.
 //!
 //! See the [guide] for more information!
-//! 
+//!
 //! # Quick Start
 //!
 //! Add Doctored to your Cargo.toml.
@@ -42,7 +42,13 @@
 //! ```text
 //! #![cfg_attr(feature = "nightly", doctored::doctored)]
 //! ```
-//! 
+//!
+//! # Disclaimers
+//!
+//! 1. Doctored depends on multiple unstable features. Expect bugs.
+//! 2. Doctored relies on internal Rustdoc behavior, which may change in future
+//!    releases. Updates to Rustdoc could potentially break functionality.
+//!
 //! See the [guide] for more information!
 
 extern crate self as doctored;
