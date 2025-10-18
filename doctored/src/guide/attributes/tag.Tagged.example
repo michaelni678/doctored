@@ -1,5 +1,7 @@
-#[doc(tag(text = "Hello", color = "#44ad67ff"))]
+#[doc(tag(text = "Hello", color = "seagreen"))]
 /// This struct is tagged.
+///
+/// The color was also changed to `seagreen`.
 ///
 /// # Related
 ///
