@@ -14,8 +14,8 @@
 //! # Example
 #![doc(highlight)]
 //! ```
-#![doc(extras(include(documentation = "doctored/src/guide/highlight.example")))]
+#![doc(extras(include(documentation = "doctored/src/guide/attributes/highlight.example")))]
 //! ```
 //! 
 //! # Expansion
-#![doc(extras(include(attributes = "doctored/src/guide/highlight.example")))]
+#![doc(extras(include(attributes = "doctored/src/guide/attributes/highlight.example")))]
