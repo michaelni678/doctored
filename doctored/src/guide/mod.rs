@@ -7,7 +7,7 @@
 //! releases. Updates to Rustdoc could potentially break Doctored's
 //! functionality.
 //!
-//! # Quick Start
+//! # Setup
 //!
 //! Add Doctored to your Cargo.toml.
 //!
