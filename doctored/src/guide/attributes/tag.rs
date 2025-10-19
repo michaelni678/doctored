@@ -19,13 +19,13 @@
 //! # Example
 #![doc(highlight)]
 //! ```
-#![doc(extras(include(documentation = "doctored/src/guide/tag.Tagged.example")))]
+#![doc(extras(include(documentation = "doctored/src/guide/attributes/tag.Tagged.example")))]
 //! pub struct Tagged;
 //!
-#![doc(extras(include(documentation = "doctored/src/guide/tag.HyperlinkTagged.example")))]
+#![doc(extras(include(documentation = "doctored/src/guide/attributes/tag.HyperlinkTagged.example")))]
 //! pub struct HyperlinkTagged;
 //!
-#![doc(extras(include(documentation = "doctored/src/guide/tag.NotTagged.example")))]
+#![doc(extras(include(documentation = "doctored/src/guide/attributes/tag.NotTagged.example")))]
 //! pub struct NotTagged;
 //! ```
 //!
@@ -33,11 +33,11 @@
 //!
 //! See [`Tagged`], [`HyperlinkTagged`], and [`NotTagged`].
 
-#[doc(extras(include(attributes = "doctored/src/guide/tag.Tagged.example")))]
+#[doc(extras(include(attributes = "doctored/src/guide/attributes/tag.Tagged.example")))]
 pub struct Tagged;
 
-#[doc(extras(include(attributes = "doctored/src/guide/tag.HyperlinkTagged.example")))]
+#[doc(extras(include(attributes = "doctored/src/guide/attributes/tag.HyperlinkTagged.example")))]
 pub struct HyperlinkTagged;
 
-#[doc(extras(include(attributes = "doctored/src/guide/tag.NotTagged.example")))]
+#[doc(extras(include(attributes = "doctored/src/guide/attributes/tag.NotTagged.example")))]
 pub struct NotTagged;
