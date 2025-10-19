@@ -10,7 +10,6 @@ license = "Apache-2.0"
 keywords = ["documentation"]
 description = "Documentation utilities"
 documentation = "https://docs.rs/doctored"
-include = ["/src/guide/**/*.example"]
 
 [package.metadata.docs.rs]
 all-features = true
