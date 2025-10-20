@@ -7,10 +7,10 @@
 //! # Example
 #![doc(highlight)]
 //! ```
-#![doc(extras(include(documentation = "doctored/src/guide/attributes/summary/hide.Summarized.example")))]
+#![doc(extras(include(documentation = "src/guide/attributes/summary/hide.Summarized.example")))]
 //! pub struct Summarized;
 //!
-#![doc(extras(include(documentation = "doctored/src/guide/attributes/summary/hide.NotSummarized.example")))]
+#![doc(extras(include(documentation = "src/guide/attributes/summary/hide.NotSummarized.example")))]
 //! pub struct NotSummarized;
 //! ```
 //!
@@ -18,8 +18,8 @@
 //!
 //! See [`Summarized`] and [`NotSummarized`].
 
-#[doc(extras(include(attributes = "doctored/src/guide/attributes/summary/hide.Summarized.example")))]
+#[doc(extras(include(attributes = "src/guide/attributes/summary/hide.Summarized.example")))]
 pub struct Summarized;
 
-#[doc(extras(include(attributes = "doctored/src/guide/attributes/summary/hide.NotSummarized.example")))]
+#[doc(extras(include(attributes = "src/guide/attributes/summary/hide.NotSummarized.example")))]
 pub struct NotSummarized;

@@ -1,4 +1,4 @@
-use std::fs;
+use std::{env, fs, path::PathBuf};
 
 use syn::{
     Attribute, Error, Result, Token,
@@ -35,12 +35,17 @@ pub fn resolve_extras_include(nodes: &mut Vec<Node>) -> Result<()> {
         let style = node.style;
         let span = node.span();
 
-        let content = match fs::read_to_string(filename) {
+        let path = match env::var_os("CARGO_MANIFEST_DIR") {
+            Some(path) => PathBuf::from(path).join(filename),
+            None => PathBuf::from(filename),
+        };
+
+        let content = match fs::read_to_string(&path) {
             Ok(content) => content,
             Err(error) => {
                 return Err(Error::new(
                     span,
-                    format!("failed to read file `{filename}`: {error}"),
+                    format!("failed to read file `{}`: {error}", path.display()),
                 ));
             }
         };
@@ -60,7 +65,10 @@ pub fn resolve_extras_include(nodes: &mut Vec<Node>) -> Result<()> {
                         } else {
                             Err(Error::new(
                                 span,
-                                format!("expected only attributes in included file `{filename}`"),
+                                format!(
+                                    "expected only attributes in included file `{}`",
+                                    path.display()
+                                ),
                             ))
                         }
                     },

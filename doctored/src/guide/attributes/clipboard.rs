@@ -51,8 +51,8 @@
 //! # Example
 #![doc(highlight)]
 //! ```
-#![doc(extras(include(documentation = "doctored/src/guide/attributes/clipboard.copy.example")))]
+#![doc(extras(include(documentation = "src/guide/attributes/clipboard.copy.example")))]
 //! ```
 //! 
 //! # Expansion
-#![doc(extras(include(attributes = "doctored/src/guide/attributes/clipboard.copy.example")))]
+#![doc(extras(include(attributes = "src/guide/attributes/clipboard.copy.example")))]
