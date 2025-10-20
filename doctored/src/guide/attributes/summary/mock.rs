@@ -7,10 +7,10 @@
 //! # Example
 #![doc(highlight)]
 //! ```
-#![doc(extras(include(documentation = "doctored/src/guide/attributes/summary/mock.Mocked.example")))]
+#![doc(extras(include(documentation = "src/guide/attributes/summary/mock.Mocked.example")))]
 //! pub struct Mocked;
 //!
-#![doc(extras(include(documentation = "doctored/src/guide/attributes/summary/mock.NotMocked.example")))]
+#![doc(extras(include(documentation = "src/guide/attributes/summary/mock.NotMocked.example")))]
 //! pub struct NotMocked;
 //! ```
 //!
@@ -18,8 +18,8 @@
 //!
 //! See [`Mocked`] and [`NotMocked`].
 
-#[doc(extras(include(attributes = "doctored/src/guide/attributes/summary/mock.Mocked.example")))]
+#[doc(extras(include(attributes = "src/guide/attributes/summary/mock.Mocked.example")))]
 pub struct Mocked;
 
-#[doc(extras(include(attributes = "doctored/src/guide/attributes/summary/mock.NotMocked.example")))]
+#[doc(extras(include(attributes = "src/guide/attributes/summary/mock.NotMocked.example")))]
 pub struct NotMocked;
