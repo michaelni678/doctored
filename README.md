@@ -10,7 +10,9 @@
 
 </div>
 
-**Doctored** introduces an attribute macro that extends Rust's documentation capabilities. The utilities Doctored provides are:
+**Doctored** introduces an attribute macro that extends Rust's documentation capabilities. 
+
+The utilities Doctored provides are:
 
 | Utility         | Description                                                                                |
 |-----------------|--------------------------------------------------------------------------------------------|
@@ -21,3 +23,4 @@
 | Tag             | Adds a tag to an item's documentation.                                                     |
 
 See the [documentation](https://docs.rs/doctored) for more information.
+
