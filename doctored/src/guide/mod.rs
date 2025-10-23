@@ -1,4 +1,5 @@
 #![cfg_attr(feature = "guide", doctored::doctored)]
+
 //! Doctored user guide.
 //!
 //! # Caution
