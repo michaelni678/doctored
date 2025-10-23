@@ -8,7 +8,7 @@ use crate::{
         nodes::convert::{convert_attributes_into_nodes, convert_nodes_into_attributes},
         resolvers::{
             clipboard::{copy::resolve_clipboard_copy, paste::resolve_clipboard_paste},
-            highlight::resolve_highlight,
+            disregard::resolve_disregard,
             summary::resolve_summary,
             tag::resolve_tag,
         },
@@ -36,7 +36,7 @@ pub fn doctored(input: TokenStream2) -> Result<TokenStream2> {
         resolve_clipboard_copy(&mut nodes, &mut clipboard)?;
         resolve_clipboard_paste(&mut nodes, clipboard)?;
 
-        resolve_highlight(&mut nodes)?;
+        resolve_disregard(&mut nodes)?;
 
         resolve_summary(&mut nodes)?;
 

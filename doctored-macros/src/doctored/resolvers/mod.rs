@@ -1,5 +1,5 @@
 pub mod clipboard;
-pub mod highlight;
+pub mod disregard;
 pub mod summary;
 pub mod tag;
 

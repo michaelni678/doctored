@@ -54,7 +54,7 @@ pub enum ArgumentKind {
     SummaryMock {
         summary: String,
     },
-    Highlight,
+    Disregard,
     ClipboardCopyHead {
         name: String,
         modifiers: Vec<ClipboardModifier>,

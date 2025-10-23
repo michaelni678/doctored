@@ -23,7 +23,7 @@
 //! simply put the `doctored` attribute macro at the top of the documentation
 //! attributes.
 //!
-#![doc(highlight)]
+#![doc(disregard)]
 //! ```
 //! #[doctored::doctored]
 //! #[doc(tag(text = "Module"))]
@@ -51,7 +51,7 @@
 //! At the top of the crate root, enable the nightly `custom_inner_attributes`
 //! and `proc_macro_hygiene` features.
 //!
-#![doc(highlight)]
+#![doc(disregard)]
 //! ```
 //! #![cfg_attr(
 //!     feature = "nightly",
@@ -61,7 +61,7 @@
 //!
 //! Add the snippet below to the top of modules that use Doctored.
 //!
-#![doc(highlight)]
+#![doc(disregard)]
 //! ```
 //! #![cfg_attr(feature = "nightly", doctored::doctored)]
 //! ```

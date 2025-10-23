@@ -50,7 +50,7 @@
 //!
 //! # Example
 //!
-#![doc(highlight)]
+#![doc(disregard)]
 //! ```
 #![doc(extras(include(documentation = "src/guide/attributes/clipboard.copy.example")))]
 //! ```

@@ -18,7 +18,7 @@ The utilities Doctored provides are:
 |-----------------|--------------------------------------------------------------------------------------------|
 | Summary Hide    | Hides the summary of an item in the module overview.                                       |
 | Summary Mock    | Displays a fake summary in the module overview and omits it from the actual documentation. |
-| Highlight       | Syntax-highlights code blocks, similar to Rustdoc's `ignore` attribute.                    |
+| Disregard       | Similar to Rustdoc's `ignore` attribute, but doesn't display a tooltip.                    |
 | Copy / Paste    | Copies and pastes documentation.                                                           |
 | Tag             | Adds a tag to an item's documentation.                                                     |
 
