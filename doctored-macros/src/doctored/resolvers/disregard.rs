@@ -2,19 +2,19 @@ use syn::{Error, Result};
 
 use crate::doctored::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
 
-pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
+pub fn resolve_disregard(nodes: &mut Vec<Node>) -> Result<()> {
     let mut index = 0;
 
-    // Loop through the nodes and find in-text highlights and turn them into nodes.
+    // Loop through the nodes and find in-text disregards and turn them into nodes.
     while index < nodes.len() {
         let node = &mut nodes[index];
 
         if let NodeKind::Documentation(DocumentationNode { string, .. }) = &mut node.kind
-            && let Some((left, right)) = string.split_once("```highlight")
+            && let Some((left, right)) = string.split_once("```disregard")
             && left.chars().all(char::is_whitespace)
             && !right.contains('`')
         {
-            // This erases "highlight".
+            // This erases "disregard".
             *string = format!("{left}```{right}");
 
             let style = node.style;
@@ -24,7 +24,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
                 index,
                 Node {
                     kind: NodeKind::Argument(ArgumentNode {
-                        kind: ArgumentKind::Highlight,
+                        kind: ArgumentKind::Disregard,
                         resolved: false,
                         span,
                     }),
@@ -32,7 +32,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
                 },
             );
 
-            // Increment past the inserted highlight node and the documentation node that
+            // Increment past the inserted disregard node and the documentation node that
             // was just processed.
             index += 2;
         } else {
@@ -47,7 +47,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
         let node = &nodes[index];
 
         let NodeKind::Argument(ArgumentNode {
-            kind: ArgumentKind::Highlight,
+            kind: ArgumentKind::Disregard,
             ..
         }) = node.kind
         else {
@@ -65,7 +65,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
         let string = loop {
             // Validate there is still a node.
             let Some(node) = nodes.get(index) else {
-                return Err(Error::new(span, "expected a code block to highlight"));
+                return Err(Error::new(span, "expected a code block to disregard"));
             };
 
             if let NodeKind::Documentation(DocumentationNode { string, .. }) = &node.kind {
@@ -80,11 +80,14 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
 
         // Validate the documentation starts with backticks.
         if !trimmed.starts_with("```") {
-            return Err(Error::new(span, "expected a code block to highlight"));
+            return Err(Error::new(
+                span,
+                "expected a code block to highldisregardight",
+            ));
         };
 
         // Validate there are only one set of backticks in the string. If there are
-        // more, the code block that the highlight node is referring to is a single-line
+        // more, the code block that the disregard node is referring to is a single-line
         // code block, which isn't supported.
         if let Some(rest) = trimmed.get(3..)
             && rest.contains("```")

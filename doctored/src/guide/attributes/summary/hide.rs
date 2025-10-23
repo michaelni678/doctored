@@ -4,7 +4,7 @@
 //!
 //! # Example
 //!
-#![doc(highlight)]
+#![doc(disregard)]
 //! ```
 #![doc(extras(include(documentation = "src/guide/attributes/summary/hide.Summarized.example")))]
 //! pub struct Summarized;

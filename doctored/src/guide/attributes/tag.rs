@@ -16,7 +16,7 @@
 //!
 //! # Example
 //!
-#![doc(highlight)]
+#![doc(disregard)]
 //! ```
 #![doc(extras(include(documentation = "src/guide/attributes/tag.Tagged.example")))]
 //! pub struct Tagged;
