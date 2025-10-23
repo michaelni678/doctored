@@ -3,13 +3,15 @@
 //! Hides the summary in the module overview.
 //!
 //! # Example
-//! 
+//!
 #![doc(highlight)]
 //! ```
 #![doc(extras(include(documentation = "src/guide/attributes/summary/hide.Summarized.example")))]
 //! pub struct Summarized;
 //!
-#![doc(extras(include(documentation = "src/guide/attributes/summary/hide.NotSummarized.example")))]
+#![doc(extras(include(
+    documentation = "src/guide/attributes/summary/hide.NotSummarized.example"
+)))]
 //! pub struct NotSummarized;
 //! ```
 //!

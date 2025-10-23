@@ -49,12 +49,12 @@
 //! | `push(right = "suffix")`  | Pushes a suffix on the right side of each line.   |
 //!
 //! # Example
-//! 
+//!
 #![doc(highlight)]
 //! ```
 #![doc(extras(include(documentation = "src/guide/attributes/clipboard.copy.example")))]
 //! ```
-//! 
+//!
 //! # Expansion
-//! 
+//!
 #![doc(extras(include(attributes = "src/guide/attributes/clipboard.copy.example")))]
