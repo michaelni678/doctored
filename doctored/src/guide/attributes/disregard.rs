@@ -1,6 +1,6 @@
 #![cfg_attr(feature = "guide", doctored::doctored)]
 
-//! Skip compiling for a code block.
+//! Skip compiling and doctesting a code block.
 //!
 //! The `disregard` attribute argument applies Rust syntax highlighting to code
 //! blocks. When the code block is doctested, the test will always pass,
