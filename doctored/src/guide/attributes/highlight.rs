@@ -13,6 +13,7 @@
 //!
 //! Doctored scans documentation for code blocks marked with the `highlight`
 //! attribute.
+//! 
 #![doc(highlight)]
 //! ```
 //! //! ```highlight
@@ -21,6 +22,7 @@
 //! ```
 //!
 //! You can also use an actual attribute placed directly above a code block.
+//! 
 #![doc(highlight)]
 //! ```
 //! #![doc(highlight)]
@@ -30,10 +32,12 @@
 //! ```
 //!
 //! # Example
+//! 
 #![doc(highlight)]
 //! ```
 #![doc(extras(include(documentation = "src/guide/attributes/highlight.example")))]
 //! ```
 //! 
 //! # Expansion
+//! 
 #![doc(extras(include(attributes = "src/guide/attributes/highlight.example")))]

@@ -1,10 +1,9 @@
 #![cfg_attr(feature = "guide", doctored::doctored)]
 
-#![rustfmt::skip]
-
 //! Hides the summary in the module overview.
 //!
 //! # Example
+//! 
 #![doc(highlight)]
 //! ```
 #![doc(extras(include(documentation = "src/guide/attributes/summary/hide.Summarized.example")))]

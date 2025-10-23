@@ -1,10 +1,9 @@
 #![cfg_attr(feature = "guide", doctored::doctored)]
 
-#![rustfmt::skip]
-
 //! Shows a fake summary.
 //!
 //! # Example
+//! 
 #![doc(highlight)]
 //! ```
 #![doc(extras(include(documentation = "src/guide/attributes/summary/mock.Mocked.example")))]

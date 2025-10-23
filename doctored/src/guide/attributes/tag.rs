@@ -1,7 +1,5 @@
 #![cfg_attr(feature = "guide", doctored::doctored)]
 
-#![rustfmt::skip]
-
 //! Categorize items.
 //!
 //! # Arguments
@@ -17,6 +15,7 @@
 //! can be used. If no color is specified, the tag will default to `steelblue`.
 //!
 //! # Example
+//! 
 #![doc(highlight)]
 //! ```
 #![doc(extras(include(documentation = "src/guide/attributes/tag.Tagged.example")))]
