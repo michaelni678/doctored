@@ -1,4 +1,5 @@
 #![cfg_attr(feature = "guide", doctored::doctored)]
+
 //! Doctored user guide.
 //!
 //! # Caution
@@ -21,6 +22,7 @@
 //! To use Doctored on [outer documentation](https://doc.rust-lang.org/rustdoc/what-is-rustdoc.html#outer-and-inner-documentation),
 //! simply put the `doctored` attribute macro at the top of the documentation
 //! attributes.
+//!
 #![doc(highlight)]
 //! ```
 //! #[doctored::doctored]
@@ -48,6 +50,7 @@
 //!
 //! At the top of the crate root, enable the nightly `custom_inner_attributes`
 //! and `proc_macro_hygiene` features.
+//!
 #![doc(highlight)]
 //! ```
 //! #![cfg_attr(
@@ -57,6 +60,7 @@
 //! ```
 //!
 //! Add the snippet below to the top of modules that use Doctored.
+//!
 #![doc(highlight)]
 //! ```
 //! #![cfg_attr(feature = "nightly", doctored::doctored)]
