@@ -1,0 +1,33 @@
+//! The code block below uses the built-in `text` attribute.
+//! 
+//! ```text
+//! Hello, World!
+//! ```
+//!
+//! The code block below is Rust.
+//!
+//! ```
+//! pub fn foo() {
+//!     println!("Hello, World!");
+//! }
+//! ```
+//!
+//! The code block below is JSON.
+//!
+//! ```json
+//! {
+//!     "string": "Hello, World!",
+//!     "number": 60,
+//! }
+//! ```
+//!
+//! The code block below is C++.
+//!
+//! ```cpp
+//! #include <iostream>
+//!
+//! int main(int argc, char** argv) {
+//!     std::cout << "Hello, World!" << std::endl;
+//!     return 0;
+//! }
+//! ```
