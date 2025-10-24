@@ -1,5 +1,6 @@
 #![cfg_attr(feature = "guide", doctored::doctored)]
 
+#![doc(highlight)]
 //! Doctored user guide.
 //!
 //! # Caution
