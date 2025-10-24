@@ -11,7 +11,7 @@ pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
         let NodeKind::Argument(ArgumentNode {
             kind: ArgumentKind::Tag { text, href, color },
             ..
-        }) = node.kind.clone()
+        }) = &node.kind
         else {
             index += 1;
             continue;
@@ -20,8 +20,10 @@ pub fn resolve_tag(nodes: &mut Vec<Node>) -> Result<()> {
         let style = node.style;
         let span = node.span();
 
-        let color = color.unwrap_or_else(|| String::from(DEFAULT_TAG_COLOR));
-        let href = href.unwrap_or_default();
+        let color = color
+            .clone()
+            .unwrap_or_else(|| String::from(DEFAULT_TAG_COLOR));
+        let href = href.clone().unwrap_or_default();
 
         let mut string = String::new();
 
