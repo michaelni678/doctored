@@ -1,4 +1,3 @@
-#![doc(highlight)]
 //! The code block below uses the built-in `text` attribute.
 //! 
 //! ```text
