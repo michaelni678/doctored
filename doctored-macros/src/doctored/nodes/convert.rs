@@ -7,8 +7,8 @@ use syn::{
 use crate::doctored::{
     nodes::{ArgumentNode, DocumentationNode, Node, NodeKind},
     parsers::{
-        clipboard::parse_clipboard, disregard::parse_disregard, summary::parse_summary,
-        tag::parse_tag,
+        clipboard::parse_clipboard, disregard::parse_disregard, highlight::parse_highlight,
+        summary::parse_summary, tag::parse_tag,
     },
 };
 
@@ -45,6 +45,8 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
                     parse_clipboard(&mut nodes, style, meta)?;
                 } else if meta.path().is_ident("tag") {
                     parse_tag(&mut nodes, style, meta)?;
+                } else if meta.path().is_ident("highlight") {
+                    parse_highlight(&mut nodes, style, meta)?;
                 } else {
                     #[cfg(feature = "extras")]
                     {
