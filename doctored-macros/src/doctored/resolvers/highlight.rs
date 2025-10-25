@@ -29,21 +29,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
 
     .hljs-comment,
     .hljs-quote {
-        color: var(--code-highlight-doc-comment-color);
-    }
-
-    .hljs-variable,
-    .hljs-template-variable,
-    .hljs-attribute,
-    .hljs-attr,
-    .hljs-tag,
-    .hljs-name,
-    .hljs-regexp,
-    .hljs-link,
-    .hljs-name,
-    .hljs-selector-id,
-    .hljs-selector-class {
-        
+        color: var(--code-highlight-comment-color);
     }
 
     .hljs-number {
@@ -64,9 +50,15 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
         color: var(--code-highlight-string-color);
     }
 
-    .hljs-title,
     .hljs-section {
-    
+        color: var(--code-highlight-prelude-val-color);
+    }
+
+    .hljs-built_in,
+    .hljs-attr,
+    .hljs-name,
+    .hljs-tag {
+        color: var(--code-highlight-prelude-color);
     }
 
     .hljs-keyword,
@@ -83,12 +75,12 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
     }
 
     .hljs-addition {
-        color: #22863a;
+        color: #44be60ff;
         background-color: var(--stab-background-color);
     }
 
     .hljs-deletion {
-        color: #b31d28;
+        color: #dd424cff;
         background-color: var(--stab-background-color);
     }
 </style>

@@ -8,7 +8,7 @@
 //!
 //! ```
 //! fn main() {
-//!     let age = 28;
+//!     let age = 28; // Comment!
 //!     println!("John is {age} years old.");
 //! }
 //! ```
@@ -19,7 +19,7 @@
 //! #include <iostream>
 //!
 //! int main(int argc, char** argv) {
-//!     int age = 28;
+//!     int age = 28; // Comment!
 //!     std::cout << "John is " << age << " years old." << std::endl;
 //!     return 0;
 //! }
@@ -30,7 +30,7 @@
 //! ```java
 //! public class Main {
 //!     public static void main(String[] args) {
-//!         int age = 28;
+//!         int age = 28; // Comment!
 //!         System.out.printf("John is %d years old.", age);
 //!     }
 //! }
@@ -45,6 +45,16 @@
 //! }
 //! ```
 //!
+//! The code block below is XML.
+//!
+//! ```xml
+//! <person>
+//!     <!-- Comment! -->
+//!     <name>John</name> 
+//!     <age>28</age>
+//! </person>
+//! ```
+//!
 //! The code block below is TOML.
 //!
 //! ```toml
@@ -57,7 +67,7 @@
 //!
 //! ```diff
 //! fn main() {
-//!     let age = 28;
+//!     let age = 28; // Comment!
 //! -   println!("Bob is {age} years old.");
 //! +   println!("John is {age} years old.");
 //! }
