@@ -60,11 +60,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
     .hljs-tag,
     .hljs-attr,
     .hljs-attribute {
-        color: color-mix(
-            in srgb,
-            var(--code-highlight-attribute-color) 50%,
-            var(--code-highlight-prelude-val-color) 50%
-        );
+        color: var(--code-highlight-macro-color);
     }
 
     .hljs-built_in {
