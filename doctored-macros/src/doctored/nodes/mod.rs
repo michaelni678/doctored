@@ -71,9 +71,7 @@ pub enum ArgumentKind {
         href: Option<String>,
         color: Option<String>,
     },
-    Highlight {
-        theme: Option<String>,
-    },
+    Highlight,
     #[cfg(feature = "extras")]
     Include {
         kind: IncludeKind,

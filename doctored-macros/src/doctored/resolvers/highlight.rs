@@ -2,14 +2,12 @@ use syn::Result;
 
 use crate::doctored::nodes::{ArgumentKind, ArgumentNode, DocumentationNode, Node, NodeKind};
 
-const DEFAULT_THEME: &str = "base16/atelier-dune-light.min";
-
 pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
     let mut index = 0;
 
     while let Some(node) = nodes.get(index) {
         let NodeKind::Argument(ArgumentNode {
-            kind: ArgumentKind::Highlight { ref theme },
+            kind: ArgumentKind::Highlight,
             ..
         }) = node.kind
         else {
@@ -20,15 +18,81 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
         let style = node.style;
         let span = node.span();
 
-        let theme = theme.clone().unwrap_or_else(|| String::from(DEFAULT_THEME));
+        let string = String::from(
+            r#"
+<style>
+    .hljs {
+        display: block;
+        overflow-x: auto;
+        padding: 0.5em;
+    }
 
-        let mut string = String::new();
+    .hljs-comment,
+    .hljs-quote {
+        color: var(--code-highlight-doc-comment-color);
+    }
 
-        string.extend([
-            format! {r#"
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/{theme}.css">
-            "#},
-            String::from(r#"
+    .hljs-variable,
+    .hljs-template-variable,
+    .hljs-attribute,
+    .hljs-attr,
+    .hljs-tag,
+    .hljs-name,
+    .hljs-regexp,
+    .hljs-link,
+    .hljs-name,
+    .hljs-selector-id,
+    .hljs-selector-class {
+        
+    }
+
+    .hljs-number {
+        color: var(--code-highlight-number-color);
+    }
+
+    .hljs-literal {
+        color: var(--code-highlight-literal-color);
+    }
+
+    .hljs-type {
+        color: var(--code-highlight-kw-2-color);
+    }
+
+    .hljs-string,
+    .hljs-symbol,
+    .hljs-bullet {
+        color: var(--code-highlight-string-color);
+    }
+
+    .hljs-title,
+    .hljs-section {
+    
+    }
+
+    .hljs-keyword,
+    .hljs-selector-tag {
+        color: var(--code-highlight-kw-color);
+    }
+
+    .hljs-emphasis {
+        font-style: italic;
+    }
+
+    .hljs-strong {
+        font-weight: bold;
+    }
+
+    .hljs-addition {
+        color: #22863a;
+        background-color: var(--stab-background-color);
+    }
+
+    .hljs-deletion {
+        color: #b31d28;
+        background-color: var(--stab-background-color);
+    }
+</style>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
 
 <script>
@@ -54,8 +118,8 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
         code.innerHTML = hljs.highlight(code.textContent, { language }).value;
     });
 </script>
-            "#),
-        ]);
+        "#,
+        );
 
         nodes.push(Node {
             kind: NodeKind::Documentation(DocumentationNode { string, span }),
