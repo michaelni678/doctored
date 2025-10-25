@@ -37,16 +37,16 @@ pub fn convert_attributes_into_nodes(attrs: Vec<Attribute>) -> Result<Vec<Node>>
             let mut unrelated = Vec::new();
 
             for meta in metas {
-                if meta.path().is_ident("summary") {
-                    parse_summary(&mut nodes, style, meta)?;
+                if meta.path().is_ident("clipboard") {
+                    parse_clipboard(&mut nodes, style, meta)?;
                 } else if meta.path().is_ident("disregard") {
                     parse_disregard(&mut nodes, style, meta)?;
-                } else if meta.path().is_ident("clipboard") {
-                    parse_clipboard(&mut nodes, style, meta)?;
-                } else if meta.path().is_ident("tag") {
-                    parse_tag(&mut nodes, style, meta)?;
                 } else if meta.path().is_ident("highlight") {
                     parse_highlight(&mut nodes, style, meta)?;
+                } else if meta.path().is_ident("summary") {
+                    parse_summary(&mut nodes, style, meta)?;
+                } else if meta.path().is_ident("tag") {
+                    parse_tag(&mut nodes, style, meta)?;
                 } else {
                     #[cfg(feature = "extras")]
                     {

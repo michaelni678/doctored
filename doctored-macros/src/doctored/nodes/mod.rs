@@ -50,11 +50,6 @@ pub struct ArgumentNode {
 
 #[derive(Clone)]
 pub enum ArgumentKind {
-    SummaryHide,
-    SummaryMock {
-        summary: String,
-    },
-    Disregard,
     ClipboardCopyHead {
         name: String,
         modifiers: Vec<ClipboardModifier>,
@@ -66,12 +61,17 @@ pub enum ArgumentKind {
         name: String,
         modifiers: Vec<ClipboardModifier>,
     },
+    Disregard,
+    Highlight,
+    SummaryHide,
+    SummaryMock {
+        summary: String,
+    },
     Tag {
         text: String,
         href: Option<String>,
         color: Option<String>,
     },
-    Highlight,
     #[cfg(feature = "extras")]
     Include {
         kind: IncludeKind,
