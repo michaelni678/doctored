@@ -21,6 +21,6 @@ The utilities Doctored provides are:
 | Disregard       | Similar to Rustdoc's `ignore` attribute, but doesn't display a tooltip.                    |
 | Copy / Paste    | Copies and pastes documentation.                                                           |
 | Tag             | Adds a tag to an item's documentation.                                                     |
+| Highlight       | Syntax highlighting for other languages.                                                   |
 
 See the [documentation](https://docs.rs/doctored) for more information.
-
