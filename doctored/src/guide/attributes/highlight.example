@@ -1,0 +1,74 @@
+//! The code block below uses the built-in `text` attribute.
+//! 
+//! ```text
+//! John is 28 years old.
+//! ```
+//!
+//! The code block below is Rust.
+//!
+//! ```
+//! fn main() {
+//!     let age = 28; // Comment!
+//!     println!("John is {age} years old.");
+//! }
+//! ```
+//!
+//! The code block below is C++.
+//!
+//! ```cpp
+//! #include <iostream>
+//!
+//! int main(int argc, char** argv) {
+//!     int age = 28; // Comment!
+//!     std::cout << "John is " << age << " years old." << std::endl;
+//!     return 0;
+//! }
+//! ```
+//!
+//! The code block below is Java.
+//!
+//! ```java
+//! public class Main {
+//!     public static void main(String[] args) {
+//!         int age = 28; // Comment!
+//!         System.out.printf("John is %d years old.", age);
+//!     }
+//! }
+//! ```
+//!
+//! The code block below is JSON.
+//!
+//! ```json
+//! {
+//!     "name": "John",
+//!     "age": 28
+//! }
+//! ```
+//!
+//! The code block below is XML.
+//!
+//! ```xml
+//! <person>
+//!     <!-- Comment! -->
+//!     <name>John</name> 
+//!     <age>28</age>
+//! </person>
+//! ```
+//!
+//! The code block below is TOML.
+//!
+//! ```toml
+//! [profile]
+//! name = "John"
+//! age = 28
+//! ```
+//!
+//! The code block below is a diff.
+//!
+//! ```diff
+//! fn main() {
+//!     let age = 28; // Comment!
+//! -   println!("Bob is {age} years old.");
+//! +   println!("John is {age} years old.");
+//! }
+//! ```
