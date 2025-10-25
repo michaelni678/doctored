@@ -48,18 +48,18 @@
 //! The code block below is XML.
 //!
 //! ```xml
-//! <person>
+//! <profile>
 //!     <!-- Comment! -->
 //!     <name>John</name> 
 //!     <age>28</age>
-//! </person>
+//! </profile>
 //! ```
 //!
 //! The code block below is TOML.
 //!
 //! ```toml
 //! [profile]
-//! name = "John"
+//! name = "John" # Comment!
 //! age = 28
 //! ```
 //!
