@@ -27,9 +27,17 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
         padding: 0.5em;
     }
 
-    .hljs-comment,
-    .hljs-quote {
-        color: var(--code-highlight-comment-color);
+    .hljs-keyword {
+        color: var(--code-highlight-kw-color);
+    }
+
+    .hljs-type {
+        color: var(--code-highlight-kw-2-color);
+    }
+
+    .hljs-string,
+    .hlhs-regex {
+        color: var(--code-highlight-string-color);
     }
 
     .hljs-number {
@@ -40,30 +48,46 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
         color: var(--code-highlight-literal-color);
     }
 
-    .hljs-type {
-        color: var(--code-highlight-kw-2-color);
+    .hljs-section {
+        color: color-mix(
+            in srgb,
+            var(--code-highlight-attribute-color) 50%,
+            var(--code-highlight-prelude-color) 50%
+        );
     }
 
-    .hljs-string,
+    .hljs-name,
+    .hljs-tag,
+    .hljs-attr,
+    .hljs-attribute {
+        color: color-mix(
+            in srgb,
+            var(--code-highlight-attribute-color) 50%,
+            var(--code-highlight-prelude-val-color) 50%
+        );
+    }
+
     .hljs-symbol,
     .hljs-bullet {
-        color: var(--code-highlight-string-color);
+        color: var(--code-highlight-question-mark-color);  
     }
 
-    .hljs-section {
-        color: var(--code-highlight-macro-color);
+    .hljs-comment {
+        color: var(--code-highlight-comment-color);
     }
 
-    .hljs-built_in,
-    .hljs-attr,
-    .hljs-name,
-    .hljs-tag {
-        color: var(--code-highlight-self-color);
+    .hljs-quote {
+        color: var(--code-highlight-doc-comment-color);
     }
 
-    .hljs-keyword,
-    .hljs-selector-tag {
-        color: var(--code-highlight-kw-color);
+    .hljs-addition {
+        color: color-mix(in oklab, var(--main-color) 40%, limegreen);
+        background-color: var(--main-background-color);
+    }
+
+    .hljs-deletion {
+        color: color-mix(in oklab, var(--main-color) 40%, crimson);
+        background-color: var(--main-background-color);
     }
 
     .hljs-emphasis {
@@ -72,16 +96,6 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
 
     .hljs-strong {
         font-weight: bold;
-    }
-
-    .hljs-addition {
-        color: #44be60ff;
-        background-color: var(--stab-background-color);
-    }
-
-    .hljs-deletion {
-        color: #dd424cff;
-        background-color: var(--stab-background-color);
     }
 </style>
 
