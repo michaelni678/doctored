@@ -51,14 +51,14 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
     }
 
     .hljs-section {
-        color: var(--code-highlight-prelude-val-color);
+        color: var(--code-highlight-macro-color);
     }
 
     .hljs-built_in,
     .hljs-attr,
     .hljs-name,
     .hljs-tag {
-        color: var(--code-highlight-prelude-color);
+        color: var(--code-highlight-self-color);
     }
 
     .hljs-keyword,
