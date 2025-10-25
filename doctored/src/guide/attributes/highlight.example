@@ -25,13 +25,17 @@
 //! }
 //! ```
 //!
-//! The code block below is Java.
+//! The code block below is C#.
 //!
-//! ```java
-//! public class Main {
-//!     public static void main(String[] args) {
+//! ```csharp
+//! using System;
+//!
+//! public class Program
+//! {
+//!     public static void Main(string[] args)
+//!     {
 //!         int age = 28; // Comment!
-//!         System.out.printf("John is %d years old.", age);
+//!         Console.WriteLine($"John is {age} years old.");
 //!     }
 //! }
 //! ```

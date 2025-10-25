@@ -48,6 +48,14 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
         color: var(--code-highlight-literal-color);
     }
 
+    .hljs-subst {
+        color: color-mix(
+            in srgb,
+            var(--code-highlight-string-color) 50%,
+            var(--code-highlight-prelude-val-color) 50%
+        );
+    }
+
     .hljs-section {
         color: color-mix(
             in srgb,
