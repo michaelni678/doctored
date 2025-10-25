@@ -36,7 +36,7 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
     }
 
     .hljs-string,
-    .hlhs-regex {
+    .hlhs-regexp {
         color: var(--code-highlight-string-color);
     }
 
@@ -67,6 +67,10 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
         );
     }
 
+    .hljs-built_in {
+        color: var(--code-highlight-prelude-color);
+    }
+
     .hljs-symbol,
     .hljs-bullet {
         color: var(--code-highlight-question-mark-color);  
@@ -76,7 +80,8 @@ pub fn resolve_highlight(nodes: &mut Vec<Node>) -> Result<()> {
         color: var(--code-highlight-comment-color);
     }
 
-    .hljs-quote {
+    .hljs-quote,
+    .hljs-doctag {
         color: var(--code-highlight-doc-comment-color);
     }
 
