@@ -12,15 +12,4 @@
 
 **Doctored** introduces an attribute macro that extends Rust's documentation capabilities. 
 
-The utilities Doctored provides are:
-
-| Utility         | Description                                                                                |
-|-----------------|--------------------------------------------------------------------------------------------|
-| Copy / Paste    | Copies and pastes documentation.                                                           |
-| Disregard       | Similar to Rustdoc's `ignore` attribute, but doesn't display a tooltip.                    |
-| Highlight       | Syntax highlighting for other languages.                                                   |
-| Summary Hide    | Hides the summary of an item in the module overview.                                       |
-| Summary Mock    | Displays a fake summary in the module overview and omits it from the actual documentation. |
-| Tag             | Adds a tag to an item's documentation.                                                     |
-
-See the [documentation](https://docs.rs/doctored) for more information.
+See the [documentation](https://docs.rs/doctored) for more examples and more information.
