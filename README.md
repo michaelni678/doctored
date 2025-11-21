@@ -12,4 +12,5 @@
 
 **Doctored** introduces an attribute macro that extends Rust's documentation capabilities. 
 
-See the [documentation](https://docs.rs/doctored) for more examples and more information.
+See the [documentation](https://docs.rs/doctored) for more examples and information.
+
